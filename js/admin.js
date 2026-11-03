@@ -408,39 +408,6 @@ function populateCategorySelects() {
   }
 }
 
-window.quickAddCategoryFromProductModal = function() {
-  var catName = prompt("নতুন ক্যাটেগরির ইংরেজি নাম লিখুন (যেমন: POLO SHIRTS, JOGGERS, SUNGLASSES):");
-  if (!catName || !catName.trim()) return;
-
-  var trimmed = catName.trim();
-  var catId = trimmed.toLowerCase().replace(/[^a-z0-9]/g, "-");
-
-  // Check if exists
-  var exists = window.CatalogStore.getCategories().some(function(c) { return c.id === catId; });
-  if (exists) {
-    alert("এই ক্যাটেগরিটি ইতিমধ্যে রয়েছে!");
-    var selExisting = document.getElementById("prod-category");
-    if (selExisting) selExisting.value = catId;
-    return;
-  }
-
-  window.CatalogStore.addCategory({
-    id: catId,
-    label: trimmed.toUpperCase(),
-    bnLabel: trimmed,
-    image: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop"
-  });
-
-  populateCategorySelects();
-  renderCategoriesList();
-  renderOverviewMetrics();
-
-  var sel = document.getElementById("prod-category");
-  if (sel) sel.value = catId;
-
-  showAdminToast("নতুন ক্যাটেগরি '" + trimmed + "' সফলভাবে যুক্ত ও সিলেক্ট করা হয়েছে!");
-};
-
 function renderCategoriesList() {
   var container = document.getElementById("categories-list-container");
   if (!container) return;
