@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>N.A.J Fashion House · Style Yourself | প্রিমিয়াম পোশাক কালেকশন</title>
+  
+  <meta name="description" content="N.A.J Fashion House, Dhaka - স্টাইলিশ ও প্রিমিয়াম পোশাক, সাশ্রয়ী দামে। ছেলেদের ট্রেন্ডিং টি-শার্ট, শার্ট, কার্গো প্যান্ট, হুডি এবং পাঞ্জাবি। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি।" />
+  <meta name="keywords" content="NAJ Fashion House, NAJ Fashion, Style Yourself, Mens Clothing Dhaka, Oversized T-shirt Bangladesh, Cargo Pants BD, Panjabi Dhaka, Cash on Delivery Bangladesh" />
+  <meta name="author" content="N.A.J Fashion House" />
+  <meta name="theme-color" content="#0a0a0c" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="N.A.J Fashion House · Style Yourself" />
+  <meta property="og:description" content="✨ স্টাইলিশ পোশাক, সাশ্রয়ী দামে। সারা বাংলাদেশে ক্যাশ অন ডেলিভারি ও দ্রুত হোম ডেলিভারি।" />
+  <meta property="og:image" content="/public/assets/logo.jpg" />
+  <meta property="og:url" content="https://www.facebook.com/profile.php?id=100081147288431" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/public/assets/logo.jpg" />
+  <link rel="apple-touch-icon" href="/public/assets/logo.jpg" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/products.css" />
+  <link rel="stylesheet" href="css/cart.css" />
+  <link rel="stylesheet" href="css/modals.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body>
+
+  <!-- ========================================================
+       TOP ANNOUNCEMENT BAR
+  ======================================================== -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-marquee">
+        <span class="top-bar-text" id="top-bar-marquee-text">
+          ✨ নতুন কালেকশন ২০২৬: সারা বাংলাদেশে ক্যাশ অন ডেলিভারি সুবিধা!
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       SITE HEADER (OVERLAY ON HERO -> SOLID ON SCROLL)
+  ======================================================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <!-- Mobile Toggle -->
+      <button class="mobile-toggle-btn" aria-label="Open Menu" onclick="toggleMobileDrawer(true)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+
+      <!-- Brand Logo -->
+      <a href="#" class="header-logo">
+        <img src="/public/assets/logo.jpg" alt="N.A.J Fashion House" onerror="this.src='https://lh3.googleusercontent.com/d/1UTXummcfOpgAInmstFETVZ3C0hZATRLV'" />
+        <div class="header-logo-text">
+          <span class="logo-main-text">N.A.J <span class="logo-gold-dot">FASHION</span></span>
+          <span class="logo-sub-text">STYLE YOURSELF</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav aria-label="Main Navigation">
+        <ul class="header-nav">
+          <li><a href="#hero-section" class="nav-link active">NEW DROP <span class="nav-badge-pill">HOT</span></a></li>
+          <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('t-shirts')">OVERSIZED TEES</a></li>
+          <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('shirts')">SHIRTS</a></li>
+          <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('pants')">CARGO & PANTS</a></li>
+          <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('hoodies')">WINTER DROPS</a></li>
+          <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('panjabi')">PANJABI</a></li>
+          <li><a href="javascript:void(0)" class="nav-link" onclick="openTrackModal()">TRACK ORDER</a></li>
+        </ul>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Search Trigger -->
+        <button class="action-btn" aria-label="Search" onclick="openSearchModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+
+        <!-- Wishlist Trigger -->
+        <button class="action-btn" aria-label="Wishlist" onclick="CartManager.showToast('উইশলিস্ট আইটেমসমূহ দেখতে স্ক্রল করুন')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          <span class="action-badge wishlist-badge-count" style="display: none;">0</span>
+        </button>
+
+        <!-- Cart Trigger -->
+        <button class="action-btn" aria-label="Shopping Bag" onclick="CartManager.openDrawer()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span class="action-badge cart-badge-count" style="display: none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================
+       MOBILE NAVIGATION DRAWER
+  ======================================================== -->
+  <div class="mobile-drawer-overlay" id="mobile-drawer-overlay" onclick="toggleMobileDrawer(false)"></div>
+  <aside class="mobile-drawer" id="mobile-drawer" aria-label="Mobile Navigation">
+    <div class="drawer-header">
+      <div class="header-logo">
+        <img src="/public/assets/logo.jpg" alt="NAJ Fashion" style="height: 38px;" />
+        <span class="logo-main-text" style="font-size: 1.1rem;">N.A.J FASHION</span>
+      </div>
+      <button class="drawer-close-btn" onclick="toggleMobileDrawer(false)" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="drawer-content">
+      <ul class="drawer-nav-list">
+        <li class="drawer-nav-item"><a href="#hero-section" onclick="toggleMobileDrawer(false)">হোম (Home) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('all');">সব কালেকশন (All Drop) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('t-shirts');">ওভারসাইজড টি-শার্ট (Tees) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('shirts');">প্রিমিয়াম শার্ট (Shirts) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('pants');">কার্গো ও ট্রাউজার (Pants) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('hoodies');">উইন্টার ড্রপ (Winter) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('panjabi');">রয়্যাল পাঞ্জাবি (Panjabi) <span>→</span></a></li>
+        <li class="drawer-nav-item"><a href="javascript:void(0)" onclick="toggleMobileDrawer(false); openTrackModal();">অর্ডার ট্র্যাক করুন (Track) <span>→</span></a></li>
+      </ul>
+    </div>
+    <div class="drawer-footer">
+      <div class="drawer-contact-info">
+        <div>📍 ঢাকা, বাংলাদেশ</div>
+        <div>📞 হটলাইন: +880 1812-345678</div>
+        <div>💬 ক্যাশ অন ডেলিভারি সারাদেশে</div>
+      </div>
+      <a href="https://www.facebook.com/profile.php?id=100081147288431" target="_blank" rel="noopener noreferrer" class="btn btn-gold btn-block btn-sm">
+        ফেসবুক পেজ ভিজিট করুন
+      </a>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       HERO BANNER CAROUSEL
+  ======================================================== -->
+  <section class="hero-section" id="hero-section">
+    <div class="hero-slider-track">
+
+      <!-- Slide 1 -->
+      <div class="hero-slide is-active" style="background-color: #0c0c0e;">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1509967419530-da38b4704bc6?q=80&w=2000&auto=format&fit=crop');"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="container hero-content">
+          <div class="hero-badge-pill">
+            <span class="hero-badge-dot"></span>
+            THE NEW DROP 2026 · EXCLUSIVE
+          </div>
+          <h1 class="hero-title">STYLE <span class="text-gold">YOURSELF.</span><br />BUILT BEYOND LIMITS.</h1>
+          <p class="hero-desc">
+            প্রিমিয়াম সুতি ফেব্রিক, ট্রেন্ডি কাট এবং আকর্ষণীয় স্ট্রিটওয়্যার ডিজাইন। প্রতিটি পোশাকে প্রকাশ পাবে আপনার অনন্য ব্যক্তিত্ব।
+          </p>
+          <div class="hero-actions">
+            <a href="#products-section" class="btn btn-gold btn-lg">শপ কালেকশন (SHOP NOW)</a>
+            <a href="#categories-section" class="btn btn-outline btn-lg">ক্যাটেগরি ব্রাউজ করুন</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="background-color: #0c0c0e;">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=2000&auto=format&fit=crop');"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="container hero-content">
+          <div class="hero-badge-pill">
+            <span class="hero-badge-dot"></span>
+            HEAVYWEIGHT COTTON · 240+ GSM
+          </div>
+          <h2 class="hero-title">AUTHENTIC <span class="text-gold">STREETWEAR</span><br />PERFECT FIT.</h2>
+          <p class="hero-desc">
+            ড্রপ শোল্ডার টি-শার্ট ও ট্যাকটিক্যাল কার্গো প্যান্টের ট্রেন্ডিং কালেকশন। ক্যাশ অন ডেলিভারিতে সারাদেশে ঘরে বসে নিন।
+          </p>
+          <div class="hero-actions">
+            <a href="#products-section" onclick="filterProductsByCategory('t-shirts')" class="btn btn-gold btn-lg">ওভারসাইজড ড্রপ দেখুন</a>
+            <a href="#products-section" onclick="filterProductsByCategory('pants')" class="btn btn-outline btn-lg">কার্গো কালেকশন</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="hero-slide" style="background-color: #0c0c0e;">
+        <div class="hero-slide-bg" style="background-image: url('https://images.unsplash.com/photo-1596755094514-f87e34085b2c?q=80&w=2000&auto=format&fit=crop');"></div>
+        <div class="hero-slide-overlay"></div>
+        <div class="container hero-content">
+          <div class="hero-badge-pill">
+            <span class="hero-badge-dot"></span>
+            PREMIUM SHIRTS & ROYAL PANJABI
+          </div>
+          <h2 class="hero-title">CLASSIC <span class="text-gold">ELEGANCE</span><br />ROYAL ATTIRE.</h2>
+          <p class="hero-desc">
+            রিসোর্ট লিনেন শার্ট ও আভিজাত্যময় এক্সক্লুসিভ পাঞ্জাবি। প্রতিটি স্পেশাল মুহূর্তের সেরা সঙ্গী।
+          </p>
+          <div class="hero-actions">
+            <a href="#products-section" onclick="filterProductsByCategory('panjabi')" class="btn btn-gold btn-lg">পাঞ্জাবি কালেকশন</a>
+            <a href="#products-section" onclick="filterProductsByCategory('shirts')" class="btn btn-outline btn-lg">লিনেন শার্ট দেখুন</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Slider Arrows -->
+    <div class="hero-controls">
+      <button class="hero-arrow-btn" onclick="prevHeroSlide()" aria-label="Previous Slide">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button class="hero-arrow-btn" onclick="nextHeroSlide()" aria-label="Next Slide">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+
+    <!-- Slider Dots -->
+    <div class="hero-dots">
+      <span class="hero-dot is-active" onclick="goToHeroSlide(0)"></span>
+      <span class="hero-dot" onclick="goToHeroSlide(1)"></span>
+      <span class="hero-dot" onclick="goToHeroSlide(2)"></span>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       TRUST PILLARS STRIP (4 VALUE PROPOSITIONS)
+  ======================================================== -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div class="trust-text">
+            <h4>ক্যাশ অন ডেলিভারি</h4>
+            <p>সারা বাংলাদেশে পণ্য হাতে পেয়ে মূল্য পরিশোধ</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 16 4 4 4-4"/><path d="M7 20V4"/><path d="m21 8-4-4-4 4"/><path d="M17 4v16"/></svg>
+          </div>
+          <div class="trust-text">
+            <h4>৭ দিনের সাইজ এক্সচেঞ্জ</h4>
+            <p>সাইজে কোনো সমস্যা হলে সহজে পরিবর্তন সুবিধা</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="trust-text">
+            <h4>১০০% প্রিমিয়াম কোয়ালিটি</h4>
+            <p>কম্প্যাক্ট সুতি ও উন্নত সেলাইয়ের নিশ্চয়তা</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="trust-text">
+            <h4>২৪/৭ হোয়াটসঅ্যাপ সাপোর্ট</h4>
+            <p>যেকোনো সহায়তায় সরাসরি কথা বলুন</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CATEGORIES SHOWCASE ("EXPLORE THE RANGE")
+  ======================================================== -->
+  <section class="categories-section" id="categories-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">EXPLORE THE RANGE</span>
+        <h2 class="section-title">পছন্দের ক্যাটেগরি বেছে নিন</h2>
+        <p class="section-subtitle">আমাদের ট্রেন্ডিং টি-শার্ট, প্রিমিয়াম শার্ট, কার্গো প্যান্ট ও রাজকীয় পাঞ্জাবি থেকে আপনার স্টাইলটি বেছে নিন।</p>
+      </div>
+
+      <div class="categories-grid" id="categories-grid-container">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       PRODUCTS SHOWCASE ("THE NEW DROP")
+  ======================================================== -->
+  <section class="products-section" id="products-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">THE NEW DROP 2026</span>
+        <h2 class="section-title">ট্রেন্ডিং কালেকশন</h2>
+        <p class="section-subtitle">প্রিমিয়াম ফেব্রিক ও পারফেক্ট ফিটিংসের পোশাক। প্রতিটি পণ্যে ক্যাশ অন ডেলিভারি প্রযোজ্য।</p>
+      </div>
+
+      <!-- Filter Tabs & Sort Controls -->
+      <div class="product-filter-bar">
+        <div class="filter-tabs" id="product-filter-tabs">
+          <!-- Filter tab buttons rendered by app.js -->
+        </div>
+
+        <div class="filter-meta-controls">
+          <span class="product-count-text" id="products-count-badge">12 ITEMS</span>
+          <select class="sort-select" id="product-sort-select" aria-label="Sort products">
+            <option value="featured">ফিচার্ড (Featured)</option>
+            <option value="price-low">দাম: কম থেকে বেশি (Price: Low to High)</option>
+            <option value="price-high">দাম: বেশি থেকে কম (Price: High to Low)</option>
+            <option value="rating">সেরা রেটিং (Top Rated)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Products Grid -->
+      <div class="products-grid" id="products-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       EDITORIAL BRAND STORY BANNER ("STYLE YOURSELF")
+  ======================================================== -->
+  <section class="editorial-section">
+    <div class="container">
+      <div class="editorial-banner">
+        <div class="editorial-grid">
+          <div class="editorial-content">
+            <span class="editorial-quote">✦ N.A.J FASHION PHILOSOPHY</span>
+            <h2 class="editorial-title">DEFINED BY DETAIL.<br /><span class="text-gold">STYLE YOURSELF.</span></h2>
+            <p class="editorial-desc">
+              পোশাক কেবল আবৃত থাকার জন্য নয়, এটি আপনার আত্মবিশ্বাস ও আভিজাত্যের বহিঃপ্রকাশ। N.A.J Fashion house প্রতিটি সুতো ও ফিনিশিংয়ে নিশ্চিত করে আন্তর্জাতিক মানের স্থায়িত্ব ও আরাম।
+            </p>
+            <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+              <a href="#products-section" class="btn btn-gold">কালেকশন দেখুন (SHOP NOW)</a>
+              <a href="https://www.facebook.com/profile.php?id=100081147288431" target="_blank" rel="noopener noreferrer" class="btn btn-outline">
+                ফেসবুক পেজ ফলো করুন
+              </a>
+            </div>
+          </div>
+          <div class="editorial-media">
+            <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?q=80&w=1200&auto=format&fit=crop" alt="NAJ Fashion Editorial" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       CUSTOMER REVIEWS & TESTIMONIALS
+  ======================================================== -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">CUSTOMER STORIES</span>
+        <h2 class="section-title">গ্রাহকদের বিশ্বস্ত মতামত</h2>
+        <p class="section-subtitle">আমাদের সন্তুষ্ট গ্রাহকদের রিভিউ দেখুন যারা নিয়মিত N.A.J Fashion-এর সাথে স্টাইল সাজাচ্ছেন।</p>
+      </div>
+
+      <div class="reviews-grid">
+        <!-- Card 1 -->
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h4 class="review-title">অসাধারণ ফেব্রিক কোয়ালিটি!</h4>
+            <p class="review-body">
+              "NAJ Fashion থেকে ২টা ওভারসাইজড টি-শার্ট নিয়েছিলাম। কাপড় এত হেভি আর আরামদায়ক হবে ভাবিনি। কালার একদম ছবির মতোই পেয়েছি। ক্যাশ অন ডেলিভারিতে চেক করে নিয়েছি। ১০/১০ রেটিং!"
+            </p>
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="reviewer-name">তানজির আহমেদ</div>
+              <div class="reviewer-loc">ধানমন্ডি, ঢাকা</div>
+            </div>
+            <span class="verified-pill">✓ ভেরিফাইড বায়ার</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h4 class="review-title">বেস্ট ফিটিং কার্গো প্যান্ট</h4>
+            <p class="review-body">
+              "ট্যাকটিক্যাল কার্গো প্যান্টের ফেব্রিক এবং সেলাই সত্যিই মাস্টারপিস। চট্টগ্রামে ডেলিভারি মাত্র ২ দিনে পেয়েছি। সাইজ সোয়াপের ঝামেলা ছাড়াই পারফেক্ট ফিট হয়েছে।"
+            </p>
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="reviewer-name">সাব্বির হোসেন</div>
+              <div class="reviewer-loc">জিইসি, চট্টগ্রাম</div>
+            </div>
+            <span class="verified-pill">✓ ভেরিফাইড বায়ার</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h4 class="review-title">প্রিমিয়াম প্যাকেজিং ও সার্ভিস</h4>
+            <p class="review-body">
+              "পাঞ্জাবিটির সিল্ক-সুতি টেক্সচার চমৎকার। গায়ে দিলে অসাধারণ প্রিমিয়াম ফিল দেয়। ডেলিভারি বয় প্যাকেজ খুলে দেখে নেওয়ার সুযোগ দিয়েছে। অনেক ধন্যবাদ।"
+            </p>
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="reviewer-name">মাহফুজুর রহমান</div>
+              <div class="reviewer-loc">উত্তরা, ঢাকা</div>
+            </div>
+            <span class="verified-pill">✓ ভেরিফাইড বায়ার</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="review-card">
+          <div>
+            <div class="review-stars">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h4 class="review-title">Style Yourself স্লোগান সার্থক!</h4>
+            <p class="review-body">
+              "অনলাইনে পোশাক কিনতে ভয় লাগত। কিন্তু N.A.J Fashion আমাকে অবাক করেছে। হুডিটার থিকনেস আর কম্ফোর্ট উইন্টারে সেরা। সবার নজর কাড়বে নিশ্চিত।"
+            </p>
+          </div>
+          <div class="review-meta">
+            <div>
+              <div class="reviewer-name">রাকিবুল ইসলাম</div>
+              <div class="reviewer-loc">সিলেট সদর</div>
+            </div>
+            <span class="verified-pill">✓ ভেরিফাইড বায়ার</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================
+       FOOTER SECTION
+  ======================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Col 1: About & Logo -->
+        <div class="footer-col footer-about">
+          <div class="header-logo" style="margin-bottom: 12px;">
+            <img src="/public/assets/logo.jpg" alt="NAJ Fashion" style="height: 44px;" />
+            <div class="header-logo-text">
+              <span class="logo-main-text">N.A.J <span class="logo-gold-dot">FASHION</span></span>
+              <span class="logo-sub-text">STYLE YOURSELF</span>
+            </div>
+          </div>
+          <p>
+            N.A.J Fashion house – সমসাময়িক পুরুষদের স্টাইলিশ ও রুচিশীল পোশাকের বিশ্বস্ত প্রতিষ্ঠান। ১০০% কোয়ালিটি গ্যারান্টি সহ সারা বাংলাদেশে হোম ডেলিভারি।
+          </p>
+          <div class="footer-social-links">
+            <a href="https://www.facebook.com/profile.php?id=100081147288431" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="Facebook Page">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://wa.me/8801812345678" target="_blank" rel="noopener noreferrer" class="social-icon-btn" title="WhatsApp Chat">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Categories -->
+        <div class="footer-col">
+          <h4>ক্যাটেগরি</h4>
+          <ul class="footer-links">
+            <li><a href="#products-section" onclick="filterProductsByCategory('t-shirts')">ওভারসাইজড টি-শার্ট</a></li>
+            <li><a href="#products-section" onclick="filterProductsByCategory('shirts')">প্রিমিয়াম ক্যাজুয়াল শার্ট</a></li>
+            <li><a href="#products-section" onclick="filterProductsByCategory('pants')">ট্যাকটিক্যাল কার্গো ও প্যান্ট</a></li>
+            <li><a href="#products-section" onclick="filterProductsByCategory('hoodies')">হেভিওয়েট হুডি ও বম্বার</a></li>
+            <li><a href="#products-section" onclick="filterProductsByCategory('panjabi')">এক্সক্লুসিভ রয়েল পাঞ্জাবি</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Customer Care -->
+        <div class="footer-col">
+          <h4>কাস্টমার সাপোর্ট</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="openTrackModal()">অর্ডার ট্র্যাকিং (Track Order)</a></li>
+            <li><a href="javascript:void(0)" onclick="QuickViewManager.openSizeGuide()">সাইজ চার্ট ও গাইড</a></li>
+            <li><a href="javascript:void(0)" onclick="CartManager.showToast('ডেলিভারি: ঢাকা ৳৭০, ঢাকার বাইরে ৳১৩০')">শিপিং ও ডেলিভারি পলিসি</a></li>
+            <li><a href="javascript:void(0)" onclick="CartManager.showToast('৭ দিনের মধ্যে সাইজ পরিবর্তনের সুবিধা রয়েছে')">রিটার্ন ও এক্সচেঞ্জ পলিসি</a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=100081147288431" target="_blank" rel="noopener noreferrer">অফিসিয়াল ফেসবুক পেজ</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact & Office -->
+        <div class="footer-col">
+          <h4>যোগাযোগ ও ঠিকানা</h4>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>হাউস #১৮, রোড #০৪, ব্লক-সি, মিরপুর-১, ঢাকা-১২১৬, বাংলাদেশ</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <span>+880 1812-345678 / +880 1712-987654</span>
+          </div>
+          <div class="footer-contact-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            <span>najfashionhousebd@gmail.com</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Gateways & Copyright -->
+      <div class="footer-payments-bar">
+        <div>
+          © 2026 <strong>N.A.J Fashion House</strong>. সর্বস্বত্ব সংরক্ষিত · Style Yourself.
+        </div>
+        <div class="payment-badges-row">
+          <span class="payment-badge-pill cod">💵 Cash on Delivery</span>
+          <span class="payment-badge-pill bkash">bKash বিকাশ</span>
+          <span class="payment-badge-pill nagad">Nagad নগদ</span>
+          <span class="payment-badge-pill">Visa / Mastercard</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================
+       SLIDE-OUT CART DRAWER
+  ======================================================== -->
+  <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="CartManager.closeDrawer()"></div>
+  <aside class="cart-drawer" id="cart-drawer" aria-label="Shopping Bag">
+    <div class="cart-header">
+      <div class="cart-header-title">
+        <span>শপিং ব্যাগ (Shopping Bag)</span>
+        <span class="cart-item-count-badge cart-badge-count" style="display: none;">0</span>
+      </div>
+      <button class="cart-close-btn" onclick="CartManager.closeDrawer()" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Free Delivery Progress Bar -->
+    <div class="free-shipping-meter">
+      <div class="meter-notice" id="cart-meter-notice">
+        ফ্রি ডেলিভারির জন্য <strong>৳২,৫০০</strong> বা তার বেশি অর্ডার করুন
+      </div>
+      <div class="meter-bar-track">
+        <div class="meter-bar-fill" id="cart-meter-fill" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Container -->
+    <div class="cart-body" id="cart-drawer-body">
+      <!-- Rendered dynamically by CartManager -->
+    </div>
+
+    <!-- Cart Footer & Checkout Button -->
+    <div class="cart-footer">
+      <div class="cart-subtotal-row">
+        <span>সাবটোটাল (Subtotal):</span>
+        <span class="cart-subtotal-val" id="cart-subtotal-val">৳0</span>
+      </div>
+      <p class="cart-shipping-note">
+        * ডেলিভারি চার্জ চেকআউটের সময় নির্ধারণ করা হবে (ঢাকা ৳৭০ / ঢাকার বাইরে ৳১৩০)
+      </p>
+      <div class="cart-checkout-actions">
+        <button class="btn btn-gold btn-block" id="cart-checkout-btn" onclick="CartManager.closeDrawer(); CheckoutManager.openCheckoutModal();">
+          ক্যাশ অন ডেলিভারিতে অর্ডার করুন →
+        </button>
+        <button class="btn btn-secondary btn-block" onclick="CartManager.closeDrawer()">
+          আরও কেনাকাটা করুন (Continue Shopping)
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================================================
+       QUICK VIEW MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="quickview-modal" onclick="if(event.target===this) QuickViewManager.closeModal();">
+    <div class="modal-container quickview-modal-container">
+      <button class="modal-close-btn" onclick="QuickViewManager.closeModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <div class="quickview-grid">
+        <!-- Gallery Column -->
+        <div class="quickview-gallery">
+          <div class="quickview-main-image-wrap">
+            <img id="qv-main-img" src="/public/assets/logo.jpg" alt="Product Preview" class="quickview-main-image" />
+          </div>
+          <div class="quickview-thumbs-row" id="qv-thumbs">
+            <!-- Thumbs generated by quickview.js -->
+          </div>
+        </div>
+
+        <!-- Details Column -->
+        <div class="quickview-details">
+          <span class="quickview-category" id="qv-category">OVERSIZED TEES</span>
+          <h2 class="quickview-title" id="qv-title">Product Title</h2>
+          <div class="quickview-price-row">
+            <span class="quickview-price" id="qv-price">৳0</span>
+            <span class="quickview-compare" id="qv-compare">৳0</span>
+          </div>
+
+          <div class="quickview-fabric-box" id="qv-fabric">
+            <strong>ফেব্রিক ও স্পেকস:</strong> 100% Combed Cotton
+          </div>
+
+          <p style="font-size: 0.88rem; color: #a5a5b5; line-height: 1.55; margin-bottom: 20px;" id="qv-desc"></p>
+
+          <!-- Size Selection -->
+          <div class="quickview-section-label">
+            <span>সাইজ নির্বাচন করুন:</span>
+            <span class="size-guide-trigger" onclick="QuickViewManager.openSizeGuide()">📐 সাইজ চার্ট গাইড</span>
+          </div>
+          <div class="quickview-sizes-group" id="qv-sizes">
+            <!-- Rendered by quickview.js -->
+          </div>
+
+          <!-- Quantity Stepper -->
+          <div class="quickview-section-label">পরিমাণ (Quantity):</div>
+          <div style="margin-bottom: 24px;">
+            <div class="qty-stepper">
+              <button class="qty-btn" onclick="QuickViewManager.updateQty(-1)">−</button>
+              <span class="qty-input" id="qv-qty">1</span>
+              <button class="qty-btn" onclick="QuickViewManager.updateQty(1)">+</button>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="quickview-actions-row">
+            <button class="btn btn-gold" style="flex: 1;" onclick="QuickViewManager.buyNowInstantCOD()">
+              ⚡ সরাসরি ক্যাশ অন ডেলিভারিতে অর্ডার
+            </button>
+            <button class="btn btn-secondary" style="flex: 1;" onclick="QuickViewManager.addToBag()">
+              🛍️ ব্যাগে যোগ করুন
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       1-STEP BANGLADESHI FAST COD CHECKOUT MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="checkout-modal" onclick="if(event.target===this) CheckoutManager.closeCheckoutModal();">
+    <div class="modal-container checkout-modal-container">
+      <button class="modal-close-btn" onclick="CheckoutManager.closeCheckoutModal()" aria-label="Close checkout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <!-- Form View -->
+      <div id="checkout-form-view">
+        <div class="checkout-modal-header">
+          <h2 class="checkout-modal-title">ক্যাশ অন ডেলিভারি অর্ডার ফরম</h2>
+          <p class="checkout-modal-subtitle">অর্ডার সম্পন্ন করতে নিচের তথ্যগুলো সঠিক দিয়ে কনফার্ম করুন। কোনো অগ্রিম পেমেন্ট প্রয়োজন নেই।</p>
+        </div>
+
+        <div class="checkout-modal-body">
+          <!-- Item Preview -->
+          <div id="checkout-items-preview-container">
+            <!-- Rendered by checkout.js -->
+          </div>
+
+          <form onsubmit="CheckoutManager.submitOrder(event)">
+            <!-- Name Input -->
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-name">
+                আপনার নাম <span class="req">*</span>
+              </label>
+              <input type="text" id="checkout-customer-name" class="form-input" placeholder="যেমন: তানজির আহমেদ" required autocomplete="name" />
+            </div>
+
+            <!-- Phone Input -->
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-phone">
+                ১১ ডিজিটের সচল মোবাইল নম্বর <span class="req">*</span>
+              </label>
+              <input type="tel" id="checkout-customer-phone" class="form-input" placeholder="017XXXXXXXX বা 018XXXXXXXX" required autocomplete="tel" pattern="[0-9]{11}" />
+              <small style="color: var(--text-muted); font-size: 0.74rem;">* ডেলিভারি ম্যান এই নম্বরে কল করে পার্সেল পৌঁছে দেবে।</small>
+            </div>
+
+            <!-- Address Input -->
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-address">
+                সম্পূর্ণ ঠিকানা (বাসা নং, রোড, থানা, জেলা) <span class="req">*</span>
+              </label>
+              <textarea id="checkout-customer-address" class="form-input" rows="3" placeholder="যেমন: বাড়ি #১২, রোড #৪, মিরপুর-১, ঢাকা" required></textarea>
+            </div>
+
+            <!-- Delivery Area Selector -->
+            <div class="form-group">
+              <label class="form-label">ডেলিভারি এরিয়া বেছে নিন <span class="req">*</span></label>
+              <div class="delivery-area-grid">
+                <div class="area-radio-card is-selected" data-area="inside" onclick="CheckoutManager.setArea('inside')">
+                  <div>
+                    <div class="area-radio-title">ঢাকা সিটির ভিতরে</div>
+                    <small style="color: var(--text-muted); font-size: 0.72rem;">২৪-৪৮ ঘণ্টায় ডেলিভারি</small>
+                  </div>
+                  <span class="area-radio-cost">৳৭০</span>
+                </div>
+                <div class="area-radio-card" data-area="outside" onclick="CheckoutManager.setArea('outside')">
+                  <div>
+                    <div class="area-radio-title">ঢাকা সিটির বাইরে</div>
+                    <small style="color: var(--text-muted); font-size: 0.72rem;">২-৪ দিনে হোম ডেলিভারি</small>
+                  </div>
+                  <span class="area-radio-cost">৳১৩০</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Optional Delivery Note -->
+            <div class="form-group">
+              <label class="form-label" for="checkout-customer-notes">স্পেশাল নোট (যদি থাকে):</label>
+              <input type="text" id="checkout-customer-notes" class="form-input" placeholder="যেমন: অফিস টাইমে কল করবেন / নির্দিষ্ট সময় ডেলিভারি" />
+            </div>
+
+            <!-- Summary Table -->
+            <div class="checkout-summary-box">
+              <div class="summary-row">
+                <span>পণ্যের মূল্য:</span>
+                <span id="checkout-summary-subtotal">৳0</span>
+              </div>
+              <div class="summary-row">
+                <span>ডেলিভারি চার্জ:</span>
+                <span id="checkout-summary-shipping">৳৭০</span>
+              </div>
+              <div class="summary-row total-row">
+                <span>সর্বমোট পরিশোধযোগ্য:</span>
+                <span class="total-amount" id="checkout-summary-total">৳0</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-block btn-lg" style="box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);">
+              ✓ অর্ডার কনফার্ম করুন (ক্যাশ অন ডেলিভারি)
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Success View (Shown after order placement) -->
+      <div id="checkout-success-view" style="display: none;">
+        <div class="order-success-box">
+          <div class="success-check-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h2 style="font-size: 1.6rem; margin-bottom: 8px;">ধন্যবাদ! আপনার অর্ডার সফল হয়েছে</h2>
+          <p style="color: var(--text-secondary); max-width: 480px; margin: 0 auto 14px auto;">
+            আমাদের কাস্টমার কেয়ার টিম শীঘ্রই আপনার সাথে ফোনে যোগাযোগ করে অর্ডার কনফার্ম করবে।
+          </p>
+          <div class="order-id-badge" id="success-order-id">অর্ডার আইডি: #NAJ-2026-00000</div>
+          
+          <div id="success-customer-details" style="background: var(--bg-card); padding: 16px; border-radius: 8px; text-align: left; max-width: 480px; margin: 0 auto 20px auto; font-size: 0.85rem; line-height: 1.6; border: 1px solid var(--border-subtle);">
+            <!-- Details populated by checkout.js -->
+          </div>
+
+          <div style="font-size: 1.1rem; font-weight: 800; margin-bottom: 24px;">
+            সর্বমোট প্রদেয়: <span style="color: var(--gold-light);" id="success-total-val">৳0</span> (ক্যাশ অন ডেলিভারি)
+          </div>
+
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+            <a id="success-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+              💬 হোয়াটসঅ্যাপে অর্ডারের কপি পাঠান
+            </a>
+            <button class="btn btn-secondary" onclick="CheckoutManager.closeCheckoutModal()">
+              আরও কেনাকাটা করুন
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       SIZE GUIDE MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="sizeguide-modal" onclick="if(event.target===this) QuickViewManager.closeSizeGuide();">
+    <div class="modal-container" style="width: 580px; max-width: 95vw; padding: 28px;">
+      <button class="modal-close-btn" onclick="QuickViewManager.closeSizeGuide()" aria-label="Close size guide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <h3 style="font-size: 1.3rem; margin-bottom: 8px;">📏 N.A.J Fashion অফিসিয়াল সাইজ চার্ট</h3>
+      <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px;">
+        সব মাপ ইঞ্চিতে (Inches) দেওয়া হলো। আপনার জন্য পারফেক্ট সাইজ নির্বাচন করুন।
+      </p>
+
+      <h4 style="font-size: 0.95rem; color: var(--gold-light); margin-top: 14px;">ওভারসাইজড টি-শার্ট সাইজ চার্ট</h4>
+      <table class="sizeguide-table">
+        <thead>
+          <tr>
+            <th>সাইজ</th>
+            <th>বডি/চেস্ট (ইঞ্চি)</th>
+            <th>দৈর্ঘ্য (ইঞ্চি)</th>
+            <th>হাতা (ইঞ্চি)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>M</strong></td>
+            <td>42"</td>
+            <td>28"</td>
+            <td>9.5"</td>
+          </tr>
+          <tr>
+            <td><strong>L</strong></td>
+            <td>44"</td>
+            <td>29"</td>
+            <td>10"</td>
+          </tr>
+          <tr>
+            <td><strong>XL</strong></td>
+            <td>46"</td>
+            <td>30"</td>
+            <td>10.5"</td>
+          </tr>
+          <tr>
+            <td><strong>XXL</strong></td>
+            <td>48"</td>
+            <td>31"</td>
+            <td>11"</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4 style="font-size: 0.95rem; color: var(--gold-light); margin-top: 18px;">কার্গো ও ট্রাউজার সাইজ চার্ট</h4>
+      <table class="sizeguide-table">
+        <thead>
+          <tr>
+            <th>সাইজ</th>
+            <th>কোমর (Waist)</th>
+            <th>দৈর্ঘ্য (Length)</th>
+            <th>থাই (Thigh)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>30</strong></td>
+            <td>30"</td>
+            <td>39"</td>
+            <td>24"</td>
+          </tr>
+          <tr>
+            <td><strong>32</strong></td>
+            <td>32"</td>
+            <td>40"</td>
+            <td>25"</td>
+          </tr>
+          <tr>
+            <td><strong>34</strong></td>
+            <td>34"</td>
+            <td>41"</td>
+            <td>26"</td>
+          </tr>
+          <tr>
+            <td><strong>36</strong></td>
+            <td>36"</td>
+            <td>42"</td>
+            <td>27"</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       LIVE SEARCH MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="search-modal" onclick="if(event.target===this) closeSearchModal();">
+    <div class="modal-container search-modal-container">
+      <button class="modal-close-btn" onclick="closeSearchModal()" aria-label="Close search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <div class="search-input-wrap">
+        <input type="text" id="search-input" placeholder="পোশাকের নাম লিখুন (যেমন: Oversized, Cargo, Linen, Panjabi)..." autocomplete="off" />
+      </div>
+
+      <div class="search-results-list" id="search-results-list">
+        <p style="color: var(--text-muted); text-align: center; padding: 20px;">পোশাকের নাম লিখে সার্চ করুন...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       ORDER TRACKING MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="tracking-modal" onclick="if(event.target===this) closeTrackModal();">
+    <div class="modal-container" style="width: 540px; max-width: 95vw; padding: 28px;">
+      <button class="modal-close-btn" onclick="closeTrackModal()" aria-label="Close tracking">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <h3 style="font-size: 1.35rem; margin-bottom: 6px;">📦 আপনার অর্ডার ট্র্যাক করুন</h3>
+      <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 20px;">
+        আপনার অর্ডারের বর্তমান অবস্থা জানতে অর্ডার আইডি অথবা ফোন নম্বর দিন।
+      </p>
+
+      <form onsubmit="searchOrderStatus(event)">
+        <div style="display: flex; gap: 10px; margin-bottom: 16px;">
+          <input type="text" id="track-input" class="form-input" placeholder="যেমন: NAJ-2026-12345 বা 017XXXXXXXX" required />
+          <button type="submit" class="btn btn-gold btn-sm">ট্র্যাক</button>
+        </div>
+      </form>
+
+      <div id="track-result-box" style="display: none;"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MOBILE STICKY BOTTOM NAVIGATION BAR
+  ======================================================== -->
+  <nav class="mobile-bottom-nav" aria-label="Mobile Bottom Navigation">
+    <a href="#hero-section" class="bottom-nav-item is-active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>হোম</span>
+    </a>
+    <a href="#categories-section" class="bottom-nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+      <span>ক্যাটেগরি</span>
+    </a>
+    <a href="javascript:void(0)" class="bottom-nav-item" onclick="openSearchModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <span>সার্চ</span>
+    </a>
+    <a href="javascript:void(0)" class="bottom-nav-item" onclick="CartManager.openDrawer()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="bottom-nav-badge cart-badge-count" style="display: none;">0</span>
+      <span>ব্যাগ</span>
+    </a>
+    <a href="https://wa.me/8801812345678" target="_blank" rel="noopener noreferrer" class="bottom-nav-item" style="color: #25d366;">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      <span>সাপোর্ট</span>
+    </a>
+  </nav>
+
+  <!-- ========================================================
+       FLOATING WHATSAPP BUTTON (DESKTOP & MOBILE)
+  ======================================================== -->
+  <a href="https://wa.me/8801812345678?text=Hello%20NAJ%20Fashion%20House,%20I%20want%20to%20order" target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn pulse-gold" title="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+    <span>হোয়াটসঅ্যাপে অর্ডার</span>
+  </a>
+
+  <!-- ========================================================
+       TOAST NOTIFICATION CONTAINER
+  ======================================================== -->
+  <div class="toast-notification" id="site-toast"></div>
+
+  <!-- JavaScript Modules -->
+  <script src="js/store-config.js"></script>
+  <script src="js/drive-helper.js"></script>
+  <script src="js/products-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/quickview.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

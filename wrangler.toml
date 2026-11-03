@@ -1,0 +1,6 @@
+name = "naj-fashion"
+compatibility_date = "2026-11-01"
+
+[pages]
+# Directory containing static files to serve
+directory = "."
