@@ -9,11 +9,28 @@
     CATEGORIES: "naj_custom_categories_v1",
     SETTINGS: "naj_store_settings_v1",
     AUTH: "naj_admin_auth_v1",
-    ORDERS: "naj_customer_orders"
+    ORDERS: "naj_customer_orders",
+    SIZE_GUIDE: "naj_custom_size_guide_v1"
   };
 
   var ALL_SIZES = [
     "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"
+  ];
+
+  var DEFAULT_SIZE_GUIDE = [
+    { size: "S", chest: '38"', length: '27"', shoulder: '17.5"', sleeve: '8.5"' },
+    { size: "M", chest: '40"', length: '28"', shoulder: '18.5"', sleeve: '9.0"' },
+    { size: "L", chest: '42"', length: '29"', shoulder: '19.5"', sleeve: '9.5"' },
+    { size: "XL", chest: '44"', length: '30"', shoulder: '20.5"', sleeve: '10.0"' },
+    { size: "2XL", chest: '46"', length: '31"', shoulder: '21.5"', sleeve: '10.5"' },
+    { size: "3XL", chest: '48"', length: '32"', shoulder: '22.5"', sleeve: '11.0"' },
+    { size: "4XL", chest: '50"', length: '32.5"', shoulder: '23.5"', sleeve: '11.0"' },
+    { size: "5XL", chest: '52"', length: '33"', shoulder: '24.5"', sleeve: '11.5"' },
+    { size: "6XL", chest: '54"', length: '33.5"', shoulder: '25.5"', sleeve: '11.5"' },
+    { size: "7XL", chest: '56"', length: '34"', shoulder: '26.5"', sleeve: '12.0"' },
+    { size: "8XL", chest: '58"', length: '34.5"', shoulder: '27.5"', sleeve: '12.0"' },
+    { size: "9XL", chest: '60"', length: '35"', shoulder: '28.5"', sleeve: '12.5"' },
+    { size: "10XL", chest: '62"', length: '35.5"', shoulder: '29.5"', sleeve: '12.5"' }
   ];
 
   // Default Admin Credentials
@@ -264,6 +281,40 @@
       return true;
     },
 
+    // ================= SIZE GUIDE =================
+    getSizeGuide: function() {
+      try {
+        var local = localStorage.getItem(STORAGE_KEYS.SIZE_GUIDE);
+        if (local) {
+          var parsed = JSON.parse(local);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed;
+          }
+        }
+      } catch (e) {
+        console.error("Error reading size guide:", e);
+      }
+
+      this.saveSizeGuide(DEFAULT_SIZE_GUIDE.slice());
+      return DEFAULT_SIZE_GUIDE.slice();
+    },
+
+    saveSizeGuide: function(list) {
+      try {
+        localStorage.setItem(STORAGE_KEYS.SIZE_GUIDE, JSON.stringify(list));
+        window.dispatchEvent(new CustomEvent("naj_sizeguide_updated", { detail: list }));
+        return true;
+      } catch (e) {
+        console.error("Error saving size guide:", e);
+        return false;
+      }
+    },
+
+    resetSizeGuide: function() {
+      this.saveSizeGuide(DEFAULT_SIZE_GUIDE.slice());
+      return DEFAULT_SIZE_GUIDE.slice();
+    },
+
     // ================= BACKUP & EXPORT =================
     exportStoreData: function() {
       return {
@@ -271,6 +322,7 @@
         products: this.getProducts(),
         categories: this.getCategories(),
         orders: this.getOrders(),
+        sizeGuide: this.getSizeGuide(),
         auth: {
           email: this.getAuth().email
         }

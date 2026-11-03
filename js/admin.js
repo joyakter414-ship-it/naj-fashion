@@ -62,6 +62,7 @@ function initDashboard() {
   renderProductsTable();
   renderCategoriesList();
   renderOrdersTable();
+  renderSizeGuideTable();
   populateCategorySelects();
 }
 
@@ -96,6 +97,7 @@ window.switchAdminTab = function(tabName) {
   if (tabName === "products") renderProductsTable();
   if (tabName === "categories") renderCategoriesList();
   if (tabName === "orders") renderOrdersTable();
+  if (tabName === "sizeguide") renderSizeGuideTable();
 };
 
 /* ========================================================
@@ -105,6 +107,7 @@ function renderOverviewMetrics() {
   var products = window.CatalogStore.getProducts();
   var categories = window.CatalogStore.getCategories();
   var orders = window.CatalogStore.getOrders();
+  var sizeGuide = window.CatalogStore.getSizeGuide ? window.CatalogStore.getSizeGuide() : [];
 
   var totalSales = orders.reduce(function(sum, o) {
     return sum + (o.grandTotal || 0);
@@ -124,10 +127,12 @@ function renderOverviewMetrics() {
   var badgeP = document.getElementById("badge-count-products");
   var badgeO = document.getElementById("badge-count-orders");
   var badgeC = document.getElementById("badge-count-categories");
+  var badgeSG = document.getElementById("badge-count-sizeguide");
 
   if (badgeP) badgeP.textContent = products.length;
   if (badgeO) badgeO.textContent = orders.length;
   if (badgeC) badgeC.textContent = categories.length - 1;
+  if (badgeSG) badgeSG.textContent = sizeGuide.length;
 }
 
 /* ========================================================
@@ -702,8 +707,10 @@ window.resetStoreToDefaults = function() {
   if (confirm("সতর্কতা: এটি সম্পূর্ণ স্টোরের কাস্টমাইজড ডেটা মুছে প্রাথমিক অবস্থায় ফিরিয়ে নেবে। আপনি কি নিশ্চিত?")) {
     localStorage.removeItem(window.CatalogStore.keys.PRODUCTS);
     localStorage.removeItem(window.CatalogStore.keys.CATEGORIES);
+    localStorage.removeItem(window.CatalogStore.keys.SIZE_GUIDE);
     window.CatalogStore.getProducts();
     window.CatalogStore.getCategories();
+    window.CatalogStore.getSizeGuide();
     initDashboard();
     showAdminToast("স্টোর প্রাথমিক অবস্থায় সফলভাবে রিসেট হয়েছে!");
   }
@@ -720,3 +727,148 @@ function showAdminToast(msg) {
     toast.classList.remove("is-active");
   }, 3200);
 }
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+/* ========================================================
+   9. SIZE GUIDE MANAGEMENT
+======================================================== */
+window.renderSizeGuideTable = function() {
+  var tbody = document.getElementById("sizeguide-admin-table-body");
+  if (!tbody) return;
+
+  var list = window.CatalogStore.getSizeGuide();
+
+  // Update badge
+  var badgeSG = document.getElementById("badge-count-sizeguide");
+  if (badgeSG) badgeSG.textContent = list.length;
+
+  if (!list || list.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">কোনো সাইজ পাওয়া যায়নি। "নতুন সাইজ যোগ করুন" বাটনে ক্লিক করুন।</td></tr>';
+    return;
+  }
+
+  var html = "";
+  list.forEach(function(item, idx) {
+    html += '<tr data-row-idx="' + idx + '">' +
+      '<td>' +
+        '<input type="text" class="size-table-input size-name-input row-size-label" value="' + escapeHtml(item.size || "") + '" placeholder="যেমন: S, XL, 3XL" />' +
+      '</td>' +
+      '<td>' +
+        '<input type="text" class="size-table-input row-size-chest" value="' + escapeHtml(item.chest || "") + '" placeholder="যেমন: 42\"" />' +
+      '</td>' +
+      '<td>' +
+        '<input type="text" class="size-table-input row-size-length" value="' + escapeHtml(item.length || "") + '" placeholder="যেমন: 29\"" />' +
+      '</td>' +
+      '<td>' +
+        '<input type="text" class="size-table-input row-size-shoulder" value="' + escapeHtml(item.shoulder || "") + '" placeholder="যেমন: 19.5\"" />' +
+      '</td>' +
+      '<td>' +
+        '<input type="text" class="size-table-input row-size-sleeve" value="' + escapeHtml(item.sleeve || "") + '" placeholder="যেমন: 9.5\"" />' +
+      '</td>' +
+      '<td style="text-align: center;">' +
+        '<button type="button" class="btn-icon-action delete" title="মুছে ফেলুন" onclick="deleteSizeRow(' + idx + ')">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>' +
+        '</button>' +
+      '</td>' +
+    '</tr>';
+  });
+
+  tbody.innerHTML = html;
+};
+
+window.addNewSizeRow = function() {
+  var tbody = document.getElementById("sizeguide-admin-table-body");
+  if (!tbody) return;
+
+  var currentRows = getCurrentSizeRowsFromDOM();
+  currentRows.push({
+    size: "NEW",
+    chest: '44"',
+    length: '30"',
+    shoulder: '20"',
+    sleeve: '10"'
+  });
+
+  window.CatalogStore.saveSizeGuide(currentRows);
+  renderSizeGuideTable();
+  showAdminToast("নতুন সাইজ রো যোগ করা হয়েছে! নাম ও মাপ এডিট করে সেভ করুন।");
+};
+
+window.deleteSizeRow = function(idx) {
+  var list = getCurrentSizeRowsFromDOM();
+  if (idx < 0 || idx >= list.length) return;
+
+  var sizeName = list[idx].size || "এই সাইজ";
+  if (confirm(sizeName + " সাইজটি চার্ট থেকে মুছে ফেলতে চান?")) {
+    list.splice(idx, 1);
+    window.CatalogStore.saveSizeGuide(list);
+    renderSizeGuideTable();
+    showAdminToast(sizeName + " সাইজ চার্ট থেকে মুছে ফেলা হয়েছে!");
+  }
+};
+
+window.saveAllSizeGuideRows = function() {
+  var list = getCurrentSizeRowsFromDOM();
+  if (list.length === 0) {
+    alert("সাইজ চার্ট অন্তত একটি সাইজ থাকতে হবে!");
+    return;
+  }
+
+  // Ensure every row has a size label
+  for (var i = 0; i < list.length; i++) {
+    if (!list[i].size || list[i].size.trim() === "") {
+      alert("অনুগ্রহ করে প্রতিটি সারিতে সাইজের নাম (যেমন: S, M, L) দিন!");
+      return;
+    }
+  }
+
+  window.CatalogStore.saveSizeGuide(list);
+  renderSizeGuideTable();
+  showAdminToast("✓ সাইজ চার্টের সমস্ত মাপ সফলভাবে সেভ ও আপডেট হয়েছে!");
+};
+
+function getCurrentSizeRowsFromDOM() {
+  var tbody = document.getElementById("sizeguide-admin-table-body");
+  if (!tbody) return window.CatalogStore.getSizeGuide();
+
+  var trs = tbody.querySelectorAll("tr[data-row-idx]");
+  if (trs.length === 0) return window.CatalogStore.getSizeGuide();
+
+  var result = [];
+  trs.forEach(function(tr) {
+    var sizeInput = tr.querySelector(".row-size-label");
+    var chestInput = tr.querySelector(".row-size-chest");
+    var lengthInput = tr.querySelector(".row-size-length");
+    var shoulderInput = tr.querySelector(".row-size-shoulder");
+    var sleeveInput = tr.querySelector(".row-size-sleeve");
+
+    if (sizeInput) {
+      result.push({
+        size: sizeInput.value.trim().toUpperCase(),
+        chest: chestInput ? chestInput.value.trim() : "",
+        length: lengthInput ? lengthInput.value.trim() : "",
+        shoulder: shoulderInput ? shoulderInput.value.trim() : "",
+        sleeve: sleeveInput ? sleeveInput.value.trim() : ""
+      });
+    }
+  });
+
+  return result;
+}
+
+window.resetSizeGuideToDefaults = function() {
+  if (confirm("আপনি কি সাইজ চার্টের মাপসমূহ প্রাথমিক স্ট্যান্ডার্ড মাপে (S থেকে 10XL) ফিরিয়ে নিতে চান?")) {
+    window.CatalogStore.resetSizeGuide();
+    renderSizeGuideTable();
+    showAdminToast("সাইজ চার্ট সফলভাবে ডিফল্ট অবস্থায় রিসেট হয়েছে!");
+  }
+};

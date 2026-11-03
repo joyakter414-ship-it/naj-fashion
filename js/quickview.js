@@ -139,6 +139,7 @@ window.QuickViewManager = {
   },
 
   openSizeGuide: function() {
+    this.renderSizeGuide();
     var modal = document.getElementById("sizeguide-modal");
     if (modal) {
       modal.classList.add("is-active");
@@ -150,5 +151,36 @@ window.QuickViewManager = {
     if (modal) {
       modal.classList.remove("is-active");
     }
+  },
+
+  renderSizeGuide: function() {
+    var tbody = document.getElementById("sizeguide-table-body");
+    if (!tbody) return;
+    var list = window.CatalogStore ? window.CatalogStore.getSizeGuide() : [];
+    if (!list || list.length === 0) return;
+
+    var html = "";
+    list.forEach(function(item) {
+      html += '<tr>' +
+        '<td><strong style="color: var(--gold-light); font-size: 0.95rem;">' + (item.size || "") + '</strong></td>' +
+        '<td>' + (item.chest || "-") + '</td>' +
+        '<td>' + (item.length || "-") + '</td>' +
+        '<td>' + (item.shoulder || "-") + '</td>' +
+        '<td>' + (item.sleeve || "-") + '</td>' +
+      '</tr>';
+    });
+    tbody.innerHTML = html;
   }
 };
+
+// Auto-render size chart on load and update whenever admin changes measurements
+document.addEventListener("DOMContentLoaded", function() {
+  if (window.QuickViewManager && window.QuickViewManager.renderSizeGuide) {
+    window.QuickViewManager.renderSizeGuide();
+  }
+});
+window.addEventListener("naj_sizeguide_updated", function() {
+  if (window.QuickViewManager && window.QuickViewManager.renderSizeGuide) {
+    window.QuickViewManager.renderSizeGuide();
+  }
+});

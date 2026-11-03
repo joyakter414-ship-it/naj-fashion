@@ -451,6 +451,30 @@ body.admin-body {
   border-color: var(--admin-crimson);
 }
 
+.size-table-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--admin-border);
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.88rem;
+  transition: all var(--ease-fast);
+}
+
+.size-table-input:focus {
+  outline: none;
+  border-color: var(--admin-gold);
+  background: rgba(212, 175, 55, 0.05);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+}
+
+.size-table-input.size-name-input {
+  font-weight: 800;
+  color: var(--admin-gold);
+}
+
 /* ========================================================
    3. SETTINGS & ACCOUNT SECURITY FORM
 ======================================================== */
