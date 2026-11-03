@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="bn" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>N.A.J Fashion House · Admin Command Studio</title>
+
+  <meta name="theme-color" content="#09090b" />
+  <link rel="icon" type="image/jpeg" href="/assets/logo.jpg" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+  <link rel="stylesheet" href="css/mobile.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ========================================================
+       1. LOGIN SANCTUARY (SHOWN WHEN LOGGED OUT)
+  ======================================================== -->
+  <div class="admin-login-wrapper" id="admin-login-wrapper">
+    <div class="login-card">
+      <img src="/assets/logo.jpg" alt="NAJ Fashion" class="login-logo" onerror="this.src='/public/assets/logo.jpg'" />
+      <h1 class="login-title">N.A.J <span style="color: var(--admin-gold);">STUDIO</span></h1>
+      <p class="login-subtitle">স্টোর ম্যানেজমেন্ট ও এডমিন পোর্টাল</p>
+
+      <div id="login-error-msg" style="display: none; background: rgba(225, 29, 72, 0.15); border: 1px solid var(--admin-crimson); color: #fecdd3; padding: 10px; border-radius: 6px; font-size: 0.82rem; margin-bottom: 16px;"></div>
+
+      <form onsubmit="handleAdminLogin(event)">
+        <div class="login-form-group">
+          <label for="login-email">এডমিন ইমেইল (Admin Email)</label>
+          <input type="email" id="login-email" class="login-input" placeholder="admin@najfashion.com" required autocomplete="username" />
+        </div>
+
+        <div class="login-form-group">
+          <label for="login-password">পাসওয়ার্ড (Password)</label>
+          <input type="password" id="login-password" class="login-input" placeholder="••••••••" required autocomplete="current-password" />
+        </div>
+
+        <button type="submit" class="btn btn-gold btn-block" style="margin-top: 10px;">
+          লগইন করুন (Enter Studio) →
+        </button>
+      </form>
+
+      <div class="login-hint-box">
+        <strong>🔑 প্রাথমিক এডমিন তথ্য:</strong><br />
+        • ইমেইল: <code>admin@najfashion.com</code><br />
+        • পাসওয়ার্ড: <code>najfashion2026</code><br />
+        <small style="color: var(--text-muted);">(লগইন করার পর ভেতরে সিকিউরিটি অপশন থেকে ইমেইল ও পাসওয়ার্ড যেকোনো সময় পরিবর্তন করা যাবে)</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       2. ADMIN STUDIO SHELL (SHOWN WHEN LOGGED IN)
+  ======================================================== -->
+  <div class="admin-shell" id="admin-shell" style="display: none;">
+
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <a href="index.html" class="admin-brand" target="_blank" title="লাইভ স্টোর দেখুন">
+        <img src="/assets/logo.jpg" alt="NAJ Fashion" onerror="this.src='/public/assets/logo.jpg'" />
+        <div class="admin-brand-text">
+          N.A.J <span style="color: var(--admin-gold);">FASHION</span>
+          <span class="admin-brand-tag">STUDIO</span>
+        </div>
+      </a>
+
+      <div class="admin-topbar-actions">
+        <a href="index.html" target="_blank" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span>স্টোর দেখুন</span>
+        </a>
+
+        <div class="admin-user-pill">
+          <span>এডমিন:</span>
+          <strong id="admin-email-display">admin@najfashion.com</strong>
+        </div>
+
+        <button class="btn btn-secondary btn-sm" onclick="handleAdminLogout()" title="লগআউট">
+          🚪 সাইন আউট
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Bar -->
+    <nav class="admin-nav-bar" aria-label="Admin Sections">
+      <button class="admin-tab-btn is-active" data-tab="overview" onclick="switchAdminTab('overview')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span>ড্যাশবোর্ড (Overview)</span>
+      </button>
+
+      <button class="admin-tab-btn" data-tab="products" onclick="switchAdminTab('products')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span>পণ্যসমূহ (Products)</span>
+        <span class="admin-badge-count" id="badge-count-products">0</span>
+      </button>
+
+      <button class="admin-tab-btn" data-tab="categories" onclick="switchAdminTab('categories')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>ক্যাটেগরি (Categories)</span>
+        <span class="admin-badge-count" id="badge-count-categories">0</span>
+      </button>
+
+      <button class="admin-tab-btn" data-tab="orders" onclick="switchAdminTab('orders')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        <span>অর্ডারসমূহ (Orders)</span>
+        <span class="admin-badge-count" id="badge-count-orders">0</span>
+      </button>
+
+      <button class="admin-tab-btn" data-tab="settings" onclick="switchAdminTab('settings')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        <span>ইমেইল, পাসওয়ার্ড ও সেটিংস</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+
+      <!-- ==================== TAB 1: OVERVIEW ==================== -->
+      <section class="admin-tab-content is-active" id="tab-overview">
+        <div class="admin-page-head">
+          <div>
+            <h2 class="admin-page-title">স্টোর পারফরম্যান্স ও সারসংক্ষেপ</h2>
+            <p class="admin-page-desc">N.A.J Fashion House-এর রিয়েল-টাইম বিক্রয়, পণ্য ও অর্ডার মেট্রিক্স।</p>
+          </div>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-gold btn-sm" onclick="openAddProductModal()">
+              + নতুন পণ্য যোগ করুন
+            </button>
+          </div>
+        </div>
+
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <div class="metric-val" id="metric-total-sales">৳0</div>
+              <div class="metric-label">সর্বমোট বিক্রয় (Revenue)</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="16" height="13" x="1" y="5" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <div>
+              <div class="metric-val" id="metric-total-orders">0</div>
+              <div class="metric-label">মোট অর্ডার (Orders)</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <div>
+              <div class="metric-val" id="metric-total-products">0</div>
+              <div class="metric-label">লাইভ পণ্য (Products)</div>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <div class="metric-val" id="metric-total-categories">0</div>
+              <div class="metric-label">সক্রিয় ক্যাটেগরি</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-box" style="max-width: 100%;">
+          <h3 class="settings-box-title">⚡ কুইক অ্যাকশনস</h3>
+          <p class="settings-box-desc">এডমিন প্যানেল থেকে দ্রুত কাজ সম্পাদনের শর্টকাটসমূহ:</p>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn btn-gold btn-sm" onclick="switchAdminTab('products'); openAddProductModal();">
+              + নতুন পোশাক যুক্ত করুন
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('orders');">
+              📋 গ্রাহকের অর্ডারগুলো চেক করুন
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="switchAdminTab('categories');">
+              📁 নতুন ক্যাটেগরি তৈরি করুন
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="exportStoreBackup();">
+              📥 স্টোর ডেটা ব্যাকআপ ডাউনলোড (JSON)
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 2: PRODUCTS ==================== -->
+      <section class="admin-tab-content" id="tab-products">
+        <div class="admin-page-head">
+          <div>
+            <h2 class="admin-page-title">পোশাক ও পণ্য ব্যবস্থাপনা (Products)</h2>
+            <p class="admin-page-desc">নতুন পণ্য যুক্ত করুন, মূল্য পরিবর্তন করুন, সাইজ ও স্টক এডিট করুন।</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="openAddProductModal()">
+            + নতুন পণ্য যোগ করুন
+          </button>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div style="display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap;">
+          <input type="text" id="product-search-input" class="admin-form-input" placeholder="পণ্য খুঁজুন (নাম বা এসকেইউ)..." style="max-width: 300px;" oninput="renderProductsTable()" />
+          <select id="product-cat-filter" class="admin-form-select" style="max-width: 240px;" onchange="renderProductsTable()">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+
+        <!-- Products Table -->
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>পোশাক / পণ্য</th>
+                <th>ক্যাটেগরি</th>
+                <th>বিক্রয় মূল্য</th>
+                <th>সাইজসমূহ</th>
+                <th>স্টক স্ট্যাটাস</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="products-table-body">
+              <!-- Rendered by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 3: CATEGORIES ==================== -->
+      <section class="admin-tab-content" id="tab-categories">
+        <div class="admin-page-head">
+          <div>
+            <h2 class="admin-page-title">ক্যাটেগরি ব্যবস্থাপনা (Categories)</h2>
+            <p class="admin-page-desc">স্টোরে প্রদর্শিত ক্যাটেগরি তালিকা ও নতুন ক্যাটেগরি তৈরি করুন।</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1.6fr; gap: 24px;">
+          <!-- Add Category Form -->
+          <div class="settings-box" style="margin-bottom: 0;">
+            <h3 class="settings-box-title">+ নতুন ক্যাটেগরি যোগ করুন</h3>
+            <p class="settings-box-desc">নতুন একটি কালেকশন বা বিভাগ যুক্ত করতে নিচের তথ্য দিন:</p>
+
+            <form onsubmit="addNewCategory(event)">
+              <div class="admin-form-group">
+                <label for="new-cat-label">ইংরেজি নাম (e.g. POLO SHIRTS)</label>
+                <input type="text" id="new-cat-label" class="admin-form-input" placeholder="POLO SHIRTS" required />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="new-cat-bn">বাংলা নাম (e.g. কলার পোলো শার্ট)</label>
+                <input type="text" id="new-cat-bn" class="admin-form-input" placeholder="কলার পোলো শার্ট" />
+              </div>
+
+              <div class="admin-form-group">
+                <label for="new-cat-img">ব্যানার ইমেজ (URL বা Google Drive ID)</label>
+                <input type="text" id="new-cat-img" class="admin-form-input" placeholder="https://... অথবা ড্রাইভ আইডি" />
+              </div>
+
+              <button type="submit" class="btn btn-gold btn-block">
+                যুক্ত করুন (Add Category)
+              </button>
+            </form>
+          </div>
+
+          <!-- Existing Categories List -->
+          <div>
+            <h3 style="font-size: 1.15rem; font-weight: 800; margin-bottom: 14px;">বর্তমান ক্যাটেগরিসমূহ</h3>
+            <div id="categories-list-container" style="display: flex; flex-direction: column; gap: 12px;">
+              <!-- Rendered by admin.js -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 4: ORDERS ==================== -->
+      <section class="admin-tab-content" id="tab-orders">
+        <div class="admin-page-head">
+          <div>
+            <h2 class="admin-page-title">কাস্টমার অর্ডারসমূহ (Customer Orders)</h2>
+            <p class="admin-page-desc">ওয়েবসাইটে কাস্টমারদের দেওয়া সকল ক্যাশ অন ডেলিভারি অর্ডারের পূর্ণাঙ্গ তালিকা।</p>
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>অর্ডার আইডি</th>
+                <th>কাস্টমারের বিবরণ</th>
+                <th>অর্ডারকৃত আইটেম</th>
+                <th>মোট টাকা</th>
+                <th>স্ট্যাটাস</th>
+                <th>অ্যাকশন</th>
+              </tr>
+            </thead>
+            <tbody id="orders-table-body">
+              <!-- Rendered by admin.js -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ==================== TAB 5: SECURITY & SETTINGS ==================== -->
+      <section class="admin-tab-content" id="tab-settings">
+        <div class="admin-page-head">
+          <div>
+            <h2 class="admin-page-title">সিকিউরিটি ও স্টোর সেটিংস (Security & Settings)</h2>
+            <p class="admin-page-desc">এডমিন ইমেইল ও পাসওয়ার্ড পরিবর্তন করুন এবং স্টোর ডেটা ব্যাকআপ রাখুন।</p>
+          </div>
+        </div>
+
+        <!-- Credentials Change Form (Exact User Requirement) -->
+        <div class="settings-box">
+          <h3 class="settings-box-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color: var(--admin-gold);"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            ইমেইল ও পাসওয়ার্ড পরিবর্তন করুন
+          </h3>
+          <p class="settings-box-desc">
+            বর্তমান ইমেইল ও বর্তমান পাসওয়ার্ড দিয়ে আপনি চাইলে <strong>শুধুমাত্র ইমেইল</strong>, <strong>শুধুমাত্র পাসওয়ার্ড</strong> অথবা <strong>একসাথে দুটিই</strong> পরিবর্তন করতে পারবেন।
+          </p>
+
+          <div id="cred-alert-box" style="display: none; padding: 12px; border-radius: 6px; font-size: 0.85rem; margin-bottom: 18px; border: 1px solid;"></div>
+
+          <form onsubmit="handleUpdateCredentials(event)">
+            <!-- Verification Fields -->
+            <div style="background: rgba(255, 255, 255, 0.02); padding: 16px; border: 1px solid var(--admin-border); border-radius: 6px; margin-bottom: 20px;">
+              <h4 style="font-size: 0.88rem; color: var(--admin-gold); margin-bottom: 12px; text-transform: uppercase;">১. ভেরিফিকেশন (বর্তমান তথ্য)</h4>
+              <div class="admin-form-row">
+                <div class="admin-form-group" style="margin-bottom: 0;">
+                  <label for="cred-current-email">বর্তমান ইমেইল (Current Email) <span style="color: var(--admin-crimson);">*</span></label>
+                  <input type="email" id="cred-current-email" class="admin-form-input" placeholder="যেমন: admin@najfashion.com" required />
+                </div>
+                <div class="admin-form-group" style="margin-bottom: 0;">
+                  <label for="cred-current-pass">বর্তমান পাসওয়ার্ড (Current Password) <span style="color: var(--admin-crimson);">*</span></label>
+                  <input type="password" id="cred-current-pass" class="admin-form-input" placeholder="••••••••" required />
+                </div>
+              </div>
+            </div>
+
+            <!-- New Credentials Fields -->
+            <div style="background: rgba(255, 255, 255, 0.02); padding: 16px; border: 1px solid var(--admin-border); border-radius: 6px; margin-bottom: 24px;">
+              <h4 style="font-size: 0.88rem; color: var(--admin-gold); margin-bottom: 12px; text-transform: uppercase;">২. নতুন তথ্য (যা পরিবর্তন করতে চান লিখুন)</h4>
+              
+              <div class="admin-form-group">
+                <label for="cred-new-email">নতুন ইমেইল (New Email) — <em>পরিবর্তন না করতে চাইলে খালি রাখুন</em></label>
+                <input type="email" id="cred-new-email" class="admin-form-input" placeholder="নতুন ইমেইল এড্রেস" />
+              </div>
+
+              <div class="admin-form-row">
+                <div class="admin-form-group" style="margin-bottom: 0;">
+                  <label for="cred-new-pass">নতুন পাসওয়ার্ড (New Password) — <em>পরিবর্তন না করতে চাইলে খালি রাখুন</em></label>
+                  <input type="password" id="cred-new-pass" class="admin-form-input" placeholder="অন্তত ৬ অক্ষরের পাসওয়ার্ড" />
+                </div>
+                <div class="admin-form-group" style="margin-bottom: 0;">
+                  <label for="cred-confirm-pass">নতুন পাসওয়ার্ড কনফার্ম করুন</label>
+                  <input type="password" id="cred-confirm-pass" class="admin-form-input" placeholder="পুনরায় নতুন পাসওয়ার্ড লিখুন" />
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-gold btn-block btn-lg">
+              ✓ তথ্য সেভ ও আপডেট করুন
+            </button>
+          </form>
+        </div>
+
+        <!-- Store Backup & Maintenance -->
+        <div class="settings-box">
+          <h3 class="settings-box-title">📦 স্টোর ডেটা ব্যাকআপ ও রিস্টোর</h3>
+          <p class="settings-box-desc">
+            আপনার স্টোরের সমস্ত পণ্য, ক্যাটেগরি ও অর্ডারের একটি সম্পূর্ণ ব্যাকআপ JSON ফাইল হিসেবে নিজের ডিভাইসে সংরক্ষণ করে রাখতে পারেন।
+          </p>
+
+          <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="exportStoreBackup()">
+              📥 সম্পূর্ণ ডেটা ডাউনলোড করুন (Export Backup)
+            </button>
+            <button class="btn btn-outline" style="color: var(--admin-crimson); border-color: rgba(225, 29, 72, 0.4);" onclick="resetStoreToDefaults()">
+              🔄 প্রাথমিক অবস্থায় রিসেট করুন
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================
+       3. ADD / EDIT PRODUCT MODAL
+  ======================================================== -->
+  <div class="modal-backdrop" id="product-form-modal" onclick="if(event.target===this) closeProductModal();">
+    <div class="modal-container" style="width: 780px; max-width: 95vw; padding: 28px;">
+      <button class="modal-close-btn" onclick="closeProductModal()" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+
+      <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 4px;" id="modal-product-title">
+        পোশাক / পণ্য যোগ করুন
+      </h2>
+      <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 22px;">
+        পণ্যের নাম, দাম, ছবি (Drive / URL) এবং সাইজ নির্ধারণ করুন।
+      </p>
+
+      <form onsubmit="saveProductForm(event)">
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="prod-title">পণ্যের নাম (Title - English) <span style="color: var(--admin-crimson);">*</span></label>
+            <input type="text" id="prod-title" class="admin-form-input" placeholder="e.g. Signature Heavyweight Oversized Tee" required />
+          </div>
+          <div class="admin-form-group">
+            <label for="prod-bn-title">বাংলা নাম (Title - Bangla)</label>
+            <input type="text" id="prod-bn-title" class="admin-form-input" placeholder="e.g. সিগনেচার হেভিওয়েট ওভারসাইজড টি-শার্ট" />
+          </div>
+        </div>
+
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="prod-category">ক্যাটেগরি <span style="color: var(--admin-crimson);">*</span></label>
+            <select id="prod-category" class="admin-form-select" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="admin-form-group">
+            <label for="prod-badge">হাইলাইট ব্যাজ (Badge)</label>
+            <select id="prod-badge" class="admin-form-select">
+              <option value="">কোনো ব্যাজ নেই</option>
+              <option value="NEW DROP">NEW DROP</option>
+              <option value="BESTSELLER">BESTSELLER</option>
+              <option value="HOT">HOT</option>
+              <option value="EXCLUSIVE">EXCLUSIVE</option>
+              <option value="PREMIUM">PREMIUM</option>
+              <option value="WINTER DROP">WINTER DROP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="prod-price">বিক্রয় মূল্য (Price in ৳) <span style="color: var(--admin-crimson);">*</span></label>
+            <input type="number" id="prod-price" class="admin-form-input" placeholder="e.g. 1150" required min="1" />
+          </div>
+          <div class="admin-form-group">
+            <label for="prod-compare-price">কাটা মূল্য / রেগুলার প্রাইস (Compare Price in ৳)</label>
+            <input type="number" id="prod-compare-price" class="admin-form-input" placeholder="e.g. 1450 (ছাড় বোঝাতে)" min="1" />
+          </div>
+        </div>
+
+        <!-- Sizes Selection -->
+        <div class="admin-form-group">
+          <label>উপলব্ধ সাইজ নির্বাচন করুন (ক্লিক করে সিলেক্ট/আনসিলেক্ট করুন):</label>
+          <div class="size-selector-picker" id="size-picker-tags-box">
+            <!-- Rendered by admin.js -->
+          </div>
+          <div style="display: flex; gap: 8px; margin-top: 10px; max-width: 260px;">
+            <input type="text" id="custom-size-input" class="admin-form-input" placeholder="নতুন সাইজ (e.g. 38)" style="padding: 6px 10px; font-size: 0.8rem;" />
+            <button type="button" class="btn btn-secondary btn-sm" onclick="addCustomSize()">যোগ করুন</button>
+          </div>
+        </div>
+
+        <!-- Images (Supports URL & Google Drive) -->
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="prod-img1">প্রধান ছবি (URL বা Drive File ID)</label>
+            <input type="text" id="prod-img1" class="admin-form-input" placeholder="https://... অথবা gdrive:1UTXummcf..." />
+          </div>
+          <div class="admin-form-group">
+            <label for="prod-img2">হোভার ছবি / দ্বিতীয় কোণ (Hover Image)</label>
+            <input type="text" id="prod-img2" class="admin-form-input" placeholder="হোভার করলে যে ছবি শো করবে" />
+          </div>
+        </div>
+
+        <div class="admin-form-row">
+          <div class="admin-form-group">
+            <label for="prod-stock-count">স্টক সংখ্যা (Stock Quantity)</label>
+            <input type="number" id="prod-stock-count" class="admin-form-input" value="25" min="0" />
+          </div>
+          <div class="admin-form-group" style="display: flex; align-items: center; gap: 10px; padding-top: 26px;">
+            <input type="checkbox" id="prod-instock" style="width: 20px; height: 20px; accent-color: var(--admin-gold);" checked />
+            <label for="prod-instock" style="cursor: pointer; margin-bottom: 0;">স্টকে আছে (Available for Sale)</label>
+          </div>
+        </div>
+
+        <div class="admin-form-group">
+          <label for="prod-fabric">ফেব্রিক ও স্পেসিফিকেশন (Fabric Specs)</label>
+          <input type="text" id="prod-fabric" class="admin-form-input" placeholder="e.g. 230 GSM 100% Compact Combed Cotton" />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="prod-desc">বিবরণ (Description)</label>
+          <textarea id="prod-desc" class="admin-form-textarea" rows="3" placeholder="পোশাকের বিস্তারিত বর্ণনা লিখুন..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 24px;">
+          <button type="submit" class="btn btn-gold" style="flex: 1;">
+            ✓ সংরক্ষণ করুন (Save Product)
+          </button>
+          <button type="button" class="btn btn-secondary" onclick="closeProductModal()">
+            বাতিল
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="admin-toast"></div>
+
+  <!-- Scripts -->
+  <script src="js/store-config.js"></script>
+  <script src="js/drive-helper.js"></script>
+  <script src="js/products-data.js"></script>
+  <script src="js/catalog-store.js"></script>
+  <script src="js/admin.js"></script>
+
+</body>
+</html>

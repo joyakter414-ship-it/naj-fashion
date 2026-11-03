@@ -9,7 +9,8 @@ window.QuickViewManager = {
   quantity: 1,
 
   openModal: function(productId) {
-    var product = (window.PRODUCTS_DATA || []).find(function(p) {
+    var allProducts = window.CatalogStore ? window.CatalogStore.getProducts() : window.PRODUCTS_DATA;
+    var product = (allProducts || []).find(function(p) {
       return p.id === productId;
     });
     if (!product) return;

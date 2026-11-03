@@ -12,6 +12,16 @@ document.addEventListener("DOMContentLoaded", function() {
   initWishlist();
   initSearch();
   initOrderTracking();
+
+  // Listen for real-time updates from Admin Panel
+  window.addEventListener("naj_products_updated", function() {
+    renderProducts();
+  });
+  window.addEventListener("naj_categories_updated", function() {
+    initCategories();
+    renderProductTabs();
+    renderProducts();
+  });
   
   // Update cart badge initially
   if (window.CartManager) {
@@ -112,19 +122,22 @@ function initHeroSlider() {
 ======================================================== */
 function initCategories() {
   var grid = document.getElementById("categories-grid-container");
-  if (!grid || !window.CATEGORIES_DATA) return;
+  var categories = window.CatalogStore ? window.CatalogStore.getCategories() : window.CATEGORIES_DATA;
+  if (!grid || !categories) return;
 
   var html = "";
-  window.CATEGORIES_DATA.forEach(function(cat) {
+  categories.forEach(function(cat) {
     if (cat.id === "all") return;
+    var catImg = cat.image || "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?q=80&w=600&auto=format&fit=crop";
+    var resolvedImg = window.DriveHelper ? window.DriveHelper.resolveImageUrl(catImg) : catImg;
     html += 
       '<div class="category-card" onclick="filterProductsByCategory(\'' + cat.id + '\')">' +
-        '<img src="' + cat.image + '" alt="' + cat.label + '" class="category-card-bg" onerror="this.src=\'/public/assets/logo.jpg\'" />' +
+        '<img src="' + resolvedImg + '" alt="' + cat.label + '" class="category-card-bg" onerror="this.src=\'/public/assets/logo.jpg\'" />' +
         '<div class="category-card-overlay"></div>' +
         '<div class="category-card-info">' +
           '<h3 class="category-card-title">' + cat.label + '</h3>' +
           '<div class="category-card-subtitle">' +
-            '<span>' + cat.bnLabel + '</span>' +
+            '<span>' + (cat.bnLabel || cat.label) + '</span>' +
             '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>' +
           '</div>' +
         '</div>' +
@@ -155,10 +168,11 @@ function initProductGrid() {
 
 function renderProductTabs() {
   var container = document.getElementById("product-filter-tabs");
-  if (!container || !window.CATEGORIES_DATA) return;
+  var categories = window.CatalogStore ? window.CatalogStore.getCategories() : window.CATEGORIES_DATA;
+  if (!container || !categories) return;
 
   var html = "";
-  window.CATEGORIES_DATA.forEach(function(cat) {
+  categories.forEach(function(cat) {
     var activeClass = cat.id === currentCategoryFilter ? "is-active" : "";
     html += '<button class="filter-tab-btn ' + activeClass + '" onclick="filterProductsByCategory(\'' + cat.id + '\')">' + cat.label + '</button>';
   });
@@ -181,9 +195,10 @@ window.filterProductsByCategory = function(categoryId) {
 function renderProducts() {
   var grid = document.getElementById("products-grid");
   var countEl = document.getElementById("products-count-badge");
-  if (!grid || !window.PRODUCTS_DATA) return;
+  var allProducts = window.CatalogStore ? window.CatalogStore.getProducts() : window.PRODUCTS_DATA;
+  if (!grid || !allProducts) return;
 
-  var list = window.PRODUCTS_DATA.slice();
+  var list = allProducts.slice();
 
   // Filter
   if (currentCategoryFilter !== "all") {
@@ -272,7 +287,8 @@ function renderProducts() {
 }
 
 window.quickOrder = function(productId) {
-  var p = (window.PRODUCTS_DATA || []).find(function(item) { return item.id === productId; });
+  var allProducts = window.CatalogStore ? window.CatalogStore.getProducts() : window.PRODUCTS_DATA;
+  var p = (allProducts || []).find(function(item) { return item.id === productId; });
   if (!p) return;
   var orderItem = {
     itemId: p.id + "_M_quick",
@@ -351,11 +367,12 @@ function initSearch() {
       return;
     }
 
-    var matches = (window.PRODUCTS_DATA || []).filter(function(p) {
+    var allProducts = window.CatalogStore ? window.CatalogStore.getProducts() : window.PRODUCTS_DATA;
+    var matches = (allProducts || []).filter(function(p) {
       return p.title.toLowerCase().indexOf(q) > -1 ||
-             p.bnTitle.toLowerCase().indexOf(q) > -1 ||
-             p.categoryLabel.toLowerCase().indexOf(q) > -1 ||
-             p.category.toLowerCase().indexOf(q) > -1;
+             (p.bnTitle && p.bnTitle.toLowerCase().indexOf(q) > -1) ||
+             (p.categoryLabel && p.categoryLabel.toLowerCase().indexOf(q) > -1) ||
+             (p.category && p.category.toLowerCase().indexOf(q) > -1);
     });
 
     if (matches.length === 0) {
