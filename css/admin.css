@@ -543,6 +543,15 @@ body.admin-body {
   border-color: var(--admin-gold);
 }
 
+/* Modal Live Dual Hover Preview */
+#modal-hover-preview-card:hover #preview-img-primary {
+  transform: scale(1.08);
+}
+#modal-hover-preview-card:hover #preview-img-secondary {
+  opacity: 1 !important;
+  transform: scale(1.08);
+}
+
 /* Mobile Responsive */
 @media (max-width: 991px) {
   .metrics-grid {

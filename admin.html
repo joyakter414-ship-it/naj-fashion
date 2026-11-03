@@ -468,15 +468,41 @@
           </div>
         </div>
 
-        <!-- Images (Supports URL & Google Drive) -->
-        <div class="admin-form-row">
-          <div class="admin-form-group">
-            <label for="prod-img1">প্রধান ছবি (URL বা Drive File ID)</label>
-            <input type="text" id="prod-img1" class="admin-form-input" placeholder="https://... অথবা gdrive:1UTXummcf..." />
+        <!-- Images Dual Hover Section -->
+        <div style="background: rgba(255, 255, 255, 0.02); padding: 16px; border: 1px solid var(--admin-border); border-radius: var(--admin-radius); margin-bottom: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 6px;">
+            <label style="font-weight: 800; font-size: 0.88rem; color: var(--admin-gold); margin-bottom: 0;">
+              📸 পোশাকের ছবি (ডুয়াল ইমেজ হোভার অ্যানিমেশন)
+            </label>
+            <span style="font-size: 0.74rem; color: var(--text-muted);">১ম ও ২য় ছবি দিলে সাইটে মাউস নিলে অটোমেটিক ছবি পরিবর্তন হবে</span>
           </div>
-          <div class="admin-form-group">
-            <label for="prod-img2">হোভার ছবি / দ্বিতীয় কোণ (Hover Image)</label>
-            <input type="text" id="prod-img2" class="admin-form-input" placeholder="হোভার করলে যে ছবি শো করবে" />
+
+          <div class="admin-form-row">
+            <div class="admin-form-group" style="margin-bottom: 8px;">
+              <label for="prod-img1" style="font-size: 0.78rem;">
+                ১ম ছবি (সামনের ভিউ - স্বাভাবিক অবস্থায় দেখাবে) <span style="color: var(--admin-crimson);">*</span>
+              </label>
+              <input type="text" id="prod-img1" class="admin-form-input" placeholder="ইমেজ লিংক বা gdrive:ফাইল আইডি" oninput="updateModalImagePreview()" />
+            </div>
+
+            <div class="admin-form-group" style="margin-bottom: 8px;">
+              <label for="prod-img2" style="font-size: 0.78rem;">
+                ২য় ছবি (হোভার ভিউ - মাউস কার্সর নিলে সুন্দর অ্যানিমেশন সহ আসবে)
+              </label>
+              <input type="text" id="prod-img2" class="admin-form-input" placeholder="হোভার করলে যে ছবি দেখাবে (URL / gdrive ID)" oninput="updateModalImagePreview()" />
+            </div>
+          </div>
+
+          <!-- Live Interactive Hover Preview Box -->
+          <div style="margin-top: 10px; display: flex; align-items: center; gap: 16px; background: var(--admin-surface); padding: 12px; border-radius: 6px; border: 1px dashed var(--admin-border);">
+            <div id="modal-hover-preview-card" style="position: relative; width: 68px; height: 90px; border-radius: 4px; overflow: hidden; background: #000; border: 1px solid var(--admin-border); cursor: pointer;" title="এখানে মাউস নিয়ে টেস্ট করুন">
+              <img id="preview-img-primary" src="/assets/logo.jpg" alt="Primary" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease;" />
+              <img id="preview-img-secondary" src="/assets/logo.jpg" alt="Secondary" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: transform 0.5s ease, opacity 0.4s ease;" />
+            </div>
+            <div>
+              <div style="font-size: 0.82rem; font-weight: 700; color: #ffffff;">লাইভ হোভার প্রিভিউ (মাউস কার্সর নিয়ে পরীক্ষা করুন)</div>
+              <small style="color: var(--text-muted); font-size: 0.74rem;">বামের ছবিতে মাউস নিলে দেখবেন ১ম ছবি থেকে ২য় ছবিতে রূপান্তর হচ্ছে।</small>
+            </div>
           </div>
         </div>
 

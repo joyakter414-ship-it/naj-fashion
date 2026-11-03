@@ -236,6 +236,7 @@ window.openAddProductModal = function() {
 
   pickedSizes = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"];
   renderSizePickers();
+  updateModalImagePreview();
 
   var modal = document.getElementById("product-form-modal");
   if (modal) modal.classList.add("is-active");
@@ -265,9 +266,34 @@ window.openEditProductModal = function(productId) {
 
   pickedSizes = p.sizes && p.sizes.length > 0 ? p.sizes.slice() : ["M", "L", "XL", "XXL"];
   renderSizePickers();
+  updateModalImagePreview();
 
   var modal = document.getElementById("product-form-modal");
   if (modal) modal.classList.add("is-active");
+};
+
+window.updateModalImagePreview = function() {
+  var img1El = document.getElementById("prod-img1");
+  var img2El = document.getElementById("prod-img2");
+  if (!img1El) return;
+
+  var img1 = img1El.value.trim() || "/assets/logo.jpg";
+  var img2 = (img2El && img2El.value.trim()) ? img2El.value.trim() : img1;
+
+  var r1 = window.DriveHelper ? window.DriveHelper.resolveImageUrl(img1) : img1;
+  var r2 = window.DriveHelper ? window.DriveHelper.resolveImageUrl(img2) : img2;
+
+  var p1 = document.getElementById("preview-img-primary");
+  var p2 = document.getElementById("preview-img-secondary");
+
+  if (p1) {
+    p1.src = r1;
+    p1.onerror = function() { this.src = "/assets/logo.jpg"; };
+  }
+  if (p2) {
+    p2.src = r2;
+    p2.onerror = function() { this.src = "/assets/logo.jpg"; };
+  }
 };
 
 window.closeProductModal = function() {
