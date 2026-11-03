@@ -359,22 +359,30 @@
 .card-sizes-row {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
   padding-top: 10px;
+  padding-bottom: 2px;
   border-top: 1px solid var(--border-subtle);
 }
 
+.card-sizes-row::-webkit-scrollbar {
+  display: none;
+}
+
 .size-chip {
-  padding: 3px 8px;
+  flex-shrink: 0;
+  padding: 3px 7px;
   font-family: var(--font-heading);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--text-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: 3px;
   background: var(--bg-surface);
   cursor: pointer;
+  white-space: nowrap;
   transition: all var(--ease-fast);
 }
 

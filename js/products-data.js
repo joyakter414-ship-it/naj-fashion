@@ -1,7 +1,28 @@
 /**
  * N.A.J FASHION HOUSE - CATALOG & PRODUCT DATABASE
- * Supports Google Drive Image URLs, local assets, and high-res luxury previews.
+ * Supports Sizes from S to 10XL across all apparel.
+ * Google Drive Image URLs, local assets, and high-res luxury previews.
  */
+
+window.STANDARD_SIZES_ALL = [
+  "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"
+];
+
+window.STANDARD_SIZE_GUIDE = [
+  { size: "S", chest: "38\"", length: "27\"", shoulder: "17.5\"", sleeve: "8.5\"" },
+  { size: "M", chest: "40\"", length: "28\"", shoulder: "18.5\"", sleeve: "9.0\"" },
+  { size: "L", chest: "42\"", length: "29\"", shoulder: "19.5\"", sleeve: "9.5\"" },
+  { size: "XL", chest: "44\"", length: "30\"", shoulder: "20.5\"", sleeve: "10.0\"" },
+  { size: "2XL", chest: "46\"", length: "31\"", shoulder: "21.5\"", sleeve: "10.5\"" },
+  { size: "3XL", chest: "48\"", length: "32\"", shoulder: "22.5\"", sleeve: "11.0\"" },
+  { size: "4XL", chest: "50\"", length: "32.5\"", shoulder: "23.5\"", sleeve: "11.5\"" },
+  { size: "5XL", chest: "52\"", length: "33\"", shoulder: "24.5\"", sleeve: "12.0\"" },
+  { size: "6XL", chest: "54\"", length: "33.5\"", shoulder: "25.5\"", sleeve: "12.0\"" },
+  { size: "7XL", chest: "56\"", length: "34\"", shoulder: "26.5\"", sleeve: "12.5\"" },
+  { size: "8XL", chest: "58\"", length: "34.5\"", shoulder: "27.5\"", sleeve: "12.5\"" },
+  { size: "9XL", chest: "60\"", length: "35\"", shoulder: "28.5\"", sleeve: "13.0\"" },
+  { size: "10XL", chest: "62\"", length: "35.5\"", shoulder: "29.5\"", sleeve: "13.0\"" }
+];
 
 window.PRODUCTS_DATA = [
   {
@@ -24,18 +45,13 @@ window.PRODUCTS_DATA = [
       { name: "Off White", hex: "#f0ede6" },
       { name: "Vintage Charcoal", hex: "#2b2b30" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 24,
+    stockCount: 45,
     sku: "NAJ-TS-001",
     fabric: "230 GSM 100% Compact Combed Cotton · Silicon Soft Wash",
-    description: "Built for effortless silhouette. Crafted from custom-knit 230 GSM compact cotton, featuring a drop-shoulder drape, reinforced ribbed crew neckline, and breathable luxury finish.",
-    sizeGuide: [
-      { size: "M", chest: "42\"", length: "28\"", sleeve: "9.5\"" },
-      { size: "L", chest: "44\"", length: "29\"", sleeve: "10\"" },
-      { size: "XL", chest: "46\"", length: "30\"", sleeve: "10.5\"" },
-      { size: "XXL", chest: "48\"", length: "31\"", sleeve: "11\"" }
-    ]
+    description: "Built for effortless silhouette. Crafted from custom-knit 230 GSM compact cotton, featuring a drop-shoulder drape, reinforced ribbed crew neckline, and breathable luxury finish. S থেকে 10XL পর্যন্ত সব সাইজে উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-style-yourself-drop-shoulder-tee",
@@ -56,18 +72,13 @@ window.PRODUCTS_DATA = [
       { name: "Deep Noir", hex: "#0c0c0e" },
       { name: "Sage Mist", hex: "#7a8b7b" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 19,
+    stockCount: 38,
     sku: "NAJ-TS-002",
     fabric: "240 GSM Heavy Cotton · High-Density Gold Puff Print",
-    description: "The brand flag-bearer tee. Features subtle gold metallic typography on chest and high-density typography across the back. Heavyweight structure that never loses shape.",
-    sizeGuide: [
-      { size: "M", chest: "42\"", length: "28.5\"", sleeve: "9.5\"" },
-      { size: "L", chest: "44\"", length: "29.5\"", sleeve: "10\"" },
-      { size: "XL", chest: "46\"", length: "30.5\"", sleeve: "10.5\"" },
-      { size: "XXL", chest: "48\"", length: "31.5\"", sleeve: "11\"" }
-    ]
+    description: "The brand flag-bearer tee. Features subtle gold metallic typography on chest and high-density typography across the back. S থেকে 10XL পর্যন্ত পারফেক্ট সাইজিং।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-cuban-resort-linen-shirt",
@@ -89,18 +100,13 @@ window.PRODUCTS_DATA = [
       { name: "Desert Sand", hex: "#d8c4b6" },
       { name: "Classic Black", hex: "#1a1a1a" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 15,
+    stockCount: 30,
     sku: "NAJ-SH-001",
     fabric: "Organic Linen Blend · Ultra-Breathable & Moisture-Wicking",
-    description: "Designed for effortless warm-weather sophistication. Camp collar detailing, relaxed boxy drape, and real coconut shell buttons.",
-    sizeGuide: [
-      { size: "M", chest: "40\"", length: "28\"", sleeve: "8.5\"" },
-      { size: "L", chest: "42\"", length: "29\"", sleeve: "9\"" },
-      { size: "XL", chest: "44\"", length: "30\"", sleeve: "9.5\"" },
-      { size: "XXL", chest: "46\"", length: "31\"", sleeve: "10\"" }
-    ]
+    description: "Designed for effortless warm-weather sophistication. Camp collar detailing, relaxed boxy drape, and real coconut shell buttons. S থেকে 10XL পর্যন্ত উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-royal-oxford-formal-shirt",
@@ -122,18 +128,13 @@ window.PRODUCTS_DATA = [
       { name: "Crisp White", hex: "#ffffff" },
       { name: "Midnight Navy", hex: "#101d36" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 22,
+    stockCount: 35,
     sku: "NAJ-SH-002",
     fabric: "100% Egyptian Giza Cotton · Wrinkle-Resistant Weave",
-    description: "Crisp, tailored and enduring. Tailored with double-stitched seams, semi-spread collar, and curved hem that looks flawless tucked or untucked.",
-    sizeGuide: [
-      { size: "M", chest: "40\"", length: "28.5\"", sleeve: "24.5\"" },
-      { size: "L", chest: "42\"", length: "29.5\"", sleeve: "25\"" },
-      { size: "XL", chest: "44\"", length: "30.5\"", sleeve: "25.5\"" },
-      { size: "XXL", chest: "46\"", length: "31.5\"", sleeve: "26\"" }
-    ]
+    description: "Crisp, tailored and enduring. Tailored with double-stitched seams, semi-spread collar, and curved hem that looks flawless. S থেকে 10XL পর্যন্ত সাইজ অপশন।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-urban-tactical-cargo-pant",
@@ -155,18 +156,13 @@ window.PRODUCTS_DATA = [
       { name: "Army Green", hex: "#3b4d3c" },
       { name: "Khaki Tan", hex: "#9e8b6b" }
     ],
-    sizes: ["30", "32", "34", "36"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 28,
+    stockCount: 42,
     sku: "NAJ-PT-001",
     fabric: "Tough Ripstop Cotton Twill · Reinforced Knee Paneling",
-    description: "Built for movement and everyday streetwear utility. Includes 6 deep gusseted pockets, adjustable drawstring cuffs at ankles, and elasticated waist with belt loops.",
-    sizeGuide: [
-      { size: "30", chest: "Waist 30\"", length: "39\"", sleeve: "Thigh 24\"" },
-      { size: "32", chest: "Waist 32\"", length: "40\"", sleeve: "Thigh 25\"" },
-      { size: "34", chest: "Waist 34\"", length: "41\"", sleeve: "Thigh 26\"" },
-      { size: "36", chest: "Waist 36\"", length: "42\"", sleeve: "Thigh 27\"" }
-    ]
+    description: "Built for movement and everyday streetwear utility. Includes 6 deep gusseted pockets, adjustable drawstring cuffs at ankles, and elasticated waist. S থেকে 10XL পর্যন্ত সম্পূর্ণ সাইজে উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-tailored-tapered-chino",
@@ -188,18 +184,13 @@ window.PRODUCTS_DATA = [
       { name: "Beige Cream", hex: "#dcd1b4" },
       { name: "Pitch Black", hex: "#0f0f11" }
     ],
-    sizes: ["30", "32", "34", "36"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 16,
+    stockCount: 30,
     sku: "NAJ-PT-002",
     fabric: "98% Combed Cotton + 2% Spandex · 4-Way Comfort Stretch",
-    description: "The ideal balance of boardroom smartness and cafe casual. Premium peach-finish cotton with subtle stretch that holds its crisp silhouette from morning to night.",
-    sizeGuide: [
-      { size: "30", chest: "Waist 30\"", length: "39.5\"", sleeve: "Bottom 13\"" },
-      { size: "32", chest: "Waist 32\"", length: "40.5\"", sleeve: "Bottom 13.5\"" },
-      { size: "34", chest: "Waist 34\"", length: "41.5\"", sleeve: "Bottom 14\"" },
-      { size: "36", chest: "Waist 36\"", length: "42.5\"", sleeve: "Bottom 14.5\"" }
-    ]
+    description: "The ideal balance of boardroom smartness and cafe casual. Premium peach-finish cotton with subtle stretch that holds its crisp silhouette. S থেকে 10XL পর্যন্ত উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-heavyweight-fleece-hoodie-black",
@@ -220,18 +211,13 @@ window.PRODUCTS_DATA = [
       { name: "Obsidian Black", hex: "#0d0d0f" },
       { name: "Marrow Brown", hex: "#3b2f2f" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 20,
+    stockCount: 40,
     sku: "NAJ-HD-001",
     fabric: "380 GSM Heavy French Terry Fleece · Brushed Interior",
-    description: "Substantial, cozy, and engineered for cold evenings. Double-layered hood without flimsy drawstrings for a minimal streetwear aesthetic. Hidden kangaroo pocket with phone sleeve.",
-    sizeGuide: [
-      { size: "M", chest: "44\"", length: "28\"", sleeve: "25\"" },
-      { size: "L", chest: "46\"", length: "29\"", sleeve: "25.5\"" },
-      { size: "XL", chest: "48\"", length: "30\"", sleeve: "26\"" },
-      { size: "XXL", chest: "50\"", length: "31\"", sleeve: "26.5\"" }
-    ]
+    description: "Substantial, cozy, and engineered for cold evenings. Double-layered hood without flimsy drawstrings for a minimal streetwear aesthetic. S থেকে 10XL সাইজ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-luxury-embroidered-panjabi",
@@ -253,18 +239,13 @@ window.PRODUCTS_DATA = [
       { name: "Royal Jet Black", hex: "#0a0a0a" },
       { name: "Pearl White", hex: "#fcfbf7" }
     ],
-    sizes: ["40", "42", "44", "46"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 14,
+    stockCount: 28,
     sku: "NAJ-PJ-001",
     fabric: "Premium Silk-Cotton Jacquard · Subtle Collar Embroidery",
-    description: "Designed for Eid, weddings, and distinguished gatherings. Tailored with clean mandarin collar, metallic engraved buttons, and tailored silhouette.",
-    sizeGuide: [
-      { size: "40", chest: "40\"", length: "40\"", sleeve: "24\"" },
-      { size: "42", chest: "42\"", length: "42\"", sleeve: "24.5\"" },
-      { size: "44", chest: "44\"", length: "44\"", sleeve: "25\"" },
-      { size: "46", chest: "46\"", length: "46\"", sleeve: "25.5\"" }
-    ]
+    description: "Designed for Eid, weddings, and distinguished gatherings. Tailored with clean mandarin collar, metallic engraved buttons, and tailored silhouette. S থেকে 10XL পর্যন্ত উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-pro-knit-polo-shirt",
@@ -285,18 +266,13 @@ window.PRODUCTS_DATA = [
       { name: "Charcoal Melange", hex: "#333338" },
       { name: "Burgundy Wine", hex: "#5b1425" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 17,
+    stockCount: 32,
     sku: "NAJ-PL-001",
     fabric: "240 GSM Waffle Knit Pique Cotton · Ribbed Collar & Hem",
-    description: "A refined classic reimagined. Structured waffle weave texture prevents sweat marks and ensures all-day comfort. Features buttonless open Johnny collar.",
-    sizeGuide: [
-      { size: "M", chest: "40\"", length: "27.5\"", sleeve: "8.5\"" },
-      { size: "L", chest: "42\"", length: "28.5\"", sleeve: "9\"" },
-      { size: "XL", chest: "44\"", length: "29.5\"", sleeve: "9.5\"" },
-      { size: "XXL", chest: "46\"", length: "30.5\"", sleeve: "10\"" }
-    ]
+    description: "A refined classic reimagined. Structured waffle weave texture prevents sweat marks and ensures all-day comfort. Features buttonless open Johnny collar. S থেকে 10XL সাইজ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-baggy-fleece-jogger",
@@ -317,18 +293,13 @@ window.PRODUCTS_DATA = [
       { name: "Heather Grey", hex: "#57585a" },
       { name: "Pure Black", hex: "#111111" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 21,
+    stockCount: 36,
     sku: "NAJ-JG-001",
     fabric: "340 GSM Heavy Cotton Fleece · Elasticized Cuffed Hem",
-    description: "Engineered for peak chill and street-ready flair. Deep pockets with hidden zippers so your smartphone never drops during commutes.",
-    sizeGuide: [
-      { size: "M", chest: "Waist 28-30\"", length: "38.5\"", sleeve: "Thigh 25\"" },
-      { size: "L", chest: "Waist 31-33\"", length: "39.5\"", sleeve: "Thigh 26\"" },
-      { size: "XL", chest: "Waist 34-36\"", length: "40.5\"", sleeve: "Thigh 27\"" },
-      { size: "XXL", chest: "Waist 37-39\"", length: "41.5\"", sleeve: "Thigh 28\"" }
-    ]
+    description: "Engineered for peak chill and street-ready flair. Deep pockets with hidden zippers so your smartphone never drops during commutes. S থেকে 10XL উপলব্ধ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-vintage-streetwear-bomber",
@@ -349,18 +320,13 @@ window.PRODUCTS_DATA = [
       { name: "Matte Black", hex: "#111112" },
       { name: "Military Olive", hex: "#434b3e" }
     ],
-    sizes: ["M", "L", "XL", "XXL"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 12,
+    stockCount: 22,
     sku: "NAJ-JK-001",
     fabric: "Weather-Resistant Matte Poly Shell · Quilted Satin Lining",
-    description: "The ultimate cold-weather statement piece. Heavy duty metal zipper, sleeve utility pocket, and windproof ribbed cuffs.",
-    sizeGuide: [
-      { size: "M", chest: "44\"", length: "27\"", sleeve: "25\"" },
-      { size: "L", chest: "46\"", length: "28\"", sleeve: "25.5\"" },
-      { size: "XL", chest: "48\"", length: "29\"", sleeve: "26\"" },
-      { size: "XXL", chest: "50\"", length: "30\"", sleeve: "26.5\"" }
-    ]
+    description: "The ultimate cold-weather statement piece. Heavy duty metal zipper, sleeve utility pocket, and windproof ribbed cuffs. S থেকে 10XL সাইজ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   },
   {
     id: "naj-platinum-silk-panjabi-black",
@@ -381,18 +347,13 @@ window.PRODUCTS_DATA = [
       { name: "Deep Charcoal Black", hex: "#121214" },
       { name: "Rich Navy", hex: "#0b1b36" }
     ],
-    sizes: ["40", "42", "44", "46"],
+    sizes: ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: true,
-    stockCount: 18,
+    stockCount: 30,
     sku: "NAJ-PJ-002",
     fabric: "Pure Viscose Silk Blend · Luxurious Natural Sheen",
-    description: "Exquisite softness with a distinguished royal presence. Enhanced with tonal piping around the collar and cuffs for understated luxury.",
-    sizeGuide: [
-      { size: "40", chest: "40\"", length: "40\"", sleeve: "24\"" },
-      { size: "42", chest: "42\"", length: "42\"", sleeve: "24.5\"" },
-      { size: "44", chest: "44\"", length: "44\"", sleeve: "25\"" },
-      { size: "46", chest: "46\"", length: "46\"", sleeve: "25.5\"" }
-    ]
+    description: "Exquisite softness with a distinguished royal presence. Enhanced with tonal piping around the collar and cuffs for understated luxury. S থেকে 10XL সাইজ।",
+    sizeGuide: window.STANDARD_SIZE_GUIDE
   }
 ];
 

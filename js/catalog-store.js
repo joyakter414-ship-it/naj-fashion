@@ -5,12 +5,16 @@
 
 (function(window) {
   var STORAGE_KEYS = {
-    PRODUCTS: "naj_custom_products_v1",
+    PRODUCTS: "naj_custom_products_v2",
     CATEGORIES: "naj_custom_categories_v1",
     SETTINGS: "naj_store_settings_v1",
     AUTH: "naj_admin_auth_v1",
     ORDERS: "naj_customer_orders"
   };
+
+  var ALL_SIZES = [
+    "S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"
+  ];
 
   // Default Admin Credentials
   var DEFAULT_AUTH = {
@@ -30,6 +34,12 @@
         if (local) {
           var parsed = JSON.parse(local);
           if (Array.isArray(parsed) && parsed.length > 0) {
+            // Sanitize: ensure no numeric waist sizes exist
+            parsed.forEach(function(p) {
+              if (!p.sizes || p.sizes.some(function(s) { return /^\d+$/.test(s); })) {
+                p.sizes = ALL_SIZES.slice();
+              }
+            });
             return parsed;
           }
         }

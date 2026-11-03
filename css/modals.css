@@ -461,7 +461,7 @@
 .sizeguide-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
+  margin: 14px 0;
   font-size: 0.88rem;
 }
 
@@ -471,11 +471,19 @@
   text-align: center;
 }
 
-.sizeguide-table th {
-  background: var(--bg-card);
+.sizeguide-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #15151d;
   font-family: var(--font-heading);
   color: var(--gold-light);
   font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.sizeguide-table tbody tr:hover td {
+  background: rgba(212, 175, 55, 0.08);
 }
 
 .sizeguide-table td {

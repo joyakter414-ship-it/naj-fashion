@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var currentAdminTab = "overview";
 var editingProductId = null;
-var pickedSizes = ["M", "L", "XL", "XXL"];
+var pickedSizes = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"];
 
 /* ========================================================
    1. AUTHENTICATION & SESSION
@@ -233,7 +233,7 @@ window.openAddProductModal = function() {
   document.getElementById("prod-img2").value = "";
   document.getElementById("prod-instock").checked = true;
 
-  pickedSizes = ["M", "L", "XL", "XXL"];
+  pickedSizes = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"];
   renderSizePickers();
 
   var modal = document.getElementById("product-form-modal");
@@ -277,7 +277,7 @@ function renderSizePickers() {
   var container = document.getElementById("size-picker-tags-box");
   if (!container) return;
 
-  var standardSizes = ["S", "M", "L", "XL", "XXL", "3XL", "30", "32", "34", "36", "38", "40", "42", "44", "46"];
+  var standardSizes = ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"];
   var html = "";
 
   // Combine standard and any custom picked sizes
@@ -359,7 +359,7 @@ window.saveProductForm = function(e) {
     fabric: fabric,
     description: desc,
     images: images,
-    sizes: pickedSizes.length > 0 ? pickedSizes : ["M", "L", "XL", "XXL"],
+    sizes: pickedSizes.length > 0 ? pickedSizes : ["S", "M", "L", "XL", "2XL", "3XL", "4XL", "5XL", "6XL", "7XL", "8XL", "9XL", "10XL"],
     inStock: inStock
   };
 
