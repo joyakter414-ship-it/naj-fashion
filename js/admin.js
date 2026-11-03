@@ -272,13 +272,18 @@ window.openEditProductModal = function(productId) {
   if (modal) modal.classList.add("is-active");
 };
 
+var previewDebounceTimer = null;
+
 window.updateModalImagePreview = function() {
   var img1El = document.getElementById("prod-img1");
   var img2El = document.getElementById("prod-img2");
   if (!img1El) return;
 
-  var img1 = img1El.value.trim() || "/assets/logo.jpg";
-  var img2 = (img2El && img2El.value.trim()) ? img2El.value.trim() : img1;
+  var raw1 = img1El.value.trim();
+  var raw2 = img2El ? img2El.value.trim() : "";
+
+  var img1 = raw1 || "/assets/logo.jpg";
+  var img2 = raw2 || img1;
 
   var r1 = window.DriveHelper ? window.DriveHelper.resolveImageUrl(img1) : img1;
   var r2 = window.DriveHelper ? window.DriveHelper.resolveImageUrl(img2) : img2;
@@ -294,7 +299,46 @@ window.updateModalImagePreview = function() {
     p2.src = r2;
     p2.onerror = function() { this.src = "/assets/logo.jpg"; };
   }
+
+  // Live validation feedback
+  clearTimeout(previewDebounceTimer);
+  previewDebounceTimer = setTimeout(function() {
+    validateInputStatus(raw1, "img1-status-msg");
+    if (raw2) {
+      validateInputStatus(raw2, "img2-status-msg");
+    } else {
+      var s2 = document.getElementById("img2-status-msg");
+      if (s2) s2.innerHTML = '<span style="color: var(--text-muted); font-size: 0.72rem;">২য় ছবি খালি থাকলে ১ম ছবিটিই প্রদর্শিত থাকবে।</span>';
+    }
+  }, 350);
 };
+
+function validateInputStatus(inputVal, containerId) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  if (!inputVal) {
+    el.innerHTML = "";
+    return;
+  }
+
+  if (!window.DriveHelper) return;
+
+  if (window.DriveHelper.isFolderLink(inputVal)) {
+    el.innerHTML = '<span style="color: #f87171;">⚠️ এটি একটি ড্রাইভ ফোল্ডারের লিংক! ফোল্ডারের ভেতরে থাকা ছবির লিংক দিন।</span>';
+    return;
+  }
+
+  el.innerHTML = '<span style="color: var(--admin-gold);">⏳ ইমেজ লিঙ্ক যাচাই করা হচ্ছে...</span>';
+
+  window.DriveHelper.validateLinkStatus(inputVal, function(res) {
+    if (res.valid) {
+      var isDrive = res.resolvedUrl && res.resolvedUrl.indexOf("lh3.googleusercontent.com") > -1;
+      el.innerHTML = '<span style="color: #4ade80;">✓ ' + (isDrive ? 'Google Drive ছবি ভেরিফাইড ও রেডি' : 'ছবি রেডি') + '</span>';
+    } else {
+      el.innerHTML = '<span style="color: #f87171;">⚠️ ' + (res.message || 'ছবি লোড করা যায়নি') + '</span>';
+    }
+  });
+}
 
 window.closeProductModal = function() {
   var modal = document.getElementById("product-form-modal");

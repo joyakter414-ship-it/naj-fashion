@@ -482,14 +482,16 @@
               <label for="prod-img1" style="font-size: 0.78rem;">
                 ১ম ছবি (সামনের ভিউ - স্বাভাবিক অবস্থায় দেখাবে) <span style="color: var(--admin-crimson);">*</span>
               </label>
-              <input type="text" id="prod-img1" class="admin-form-input" placeholder="ইমেজ লিংক বা gdrive:ফাইল আইডি" oninput="updateModalImagePreview()" />
+              <input type="text" id="prod-img1" class="admin-form-input" placeholder="Google Drive শেয়ার লিঙ্ক, ফাইল আইডি বা ছবির URL" oninput="updateModalImagePreview()" />
+              <div id="img1-status-msg" style="font-size: 0.74rem; margin-top: 4px; min-height: 18px;"></div>
             </div>
 
             <div class="admin-form-group" style="margin-bottom: 8px;">
               <label for="prod-img2" style="font-size: 0.78rem;">
                 ২য় ছবি (হোভার ভিউ - মাউস কার্সর নিলে সুন্দর অ্যানিমেশন সহ আসবে)
               </label>
-              <input type="text" id="prod-img2" class="admin-form-input" placeholder="হোভার করলে যে ছবি দেখাবে (URL / gdrive ID)" oninput="updateModalImagePreview()" />
+              <input type="text" id="prod-img2" class="admin-form-input" placeholder="Google Drive শেয়ার লিঙ্ক, ফাইল আইডি বা ছবির URL" oninput="updateModalImagePreview()" />
+              <div id="img2-status-msg" style="font-size: 0.74rem; margin-top: 4px; min-height: 18px;"></div>
             </div>
           </div>
 
