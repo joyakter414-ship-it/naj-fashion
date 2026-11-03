@@ -68,7 +68,7 @@
 
       <!-- Desktop Nav -->
       <nav aria-label="Main Navigation">
-        <ul class="header-nav">
+        <ul class="header-nav" id="header-nav-list">
           <li><a href="#hero-section" class="nav-link active">NEW DROP <span class="nav-badge-pill">HOT</span></a></li>
           <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('t-shirts')">OVERSIZED TEES</a></li>
           <li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory('shirts')">SHIRTS</a></li>
@@ -116,7 +116,7 @@
       </button>
     </div>
     <div class="drawer-content">
-      <ul class="drawer-nav-list">
+      <ul class="drawer-nav-list" id="mobile-drawer-nav-list">
         <li class="drawer-nav-item"><a href="#hero-section" onclick="toggleMobileDrawer(false)">হোম (Home) <span>→</span></a></li>
         <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('all');">সব কালেকশন (All Drop) <span>→</span></a></li>
         <li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory('t-shirts');">ওভারসাইজড টি-শার্ট (Tees) <span>→</span></a></li>

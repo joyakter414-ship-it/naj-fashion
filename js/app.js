@@ -118,9 +118,49 @@ function initHeroSlider() {
 }
 
 /* ========================================================
-   4. CATEGORIES RENDER
+   4. CATEGORIES RENDER (HEADER, DRAWER & HOMEPAGE GRID)
 ======================================================== */
 function initCategories() {
+  renderHeaderNavigation();
+  renderMobileDrawerNavigation();
+  renderCategoriesGrid();
+}
+
+function renderHeaderNavigation() {
+  var navList = document.getElementById("header-nav-list");
+  var categories = window.CatalogStore ? window.CatalogStore.getCategories() : window.CATEGORIES_DATA;
+  if (!navList || !categories) return;
+
+  var html = '<li><a href="#hero-section" class="nav-link active">NEW DROP <span class="nav-badge-pill">HOT</span></a></li>';
+
+  categories.forEach(function(cat) {
+    if (cat.id === "all") return;
+    html += '<li><a href="#products-section" class="nav-link" onclick="filterProductsByCategory(\'' + cat.id + '\')">' + (cat.label || cat.id).toUpperCase() + '</a></li>';
+  });
+
+  html += '<li><a href="javascript:void(0)" class="nav-link" onclick="openTrackModal()">TRACK ORDER</a></li>';
+  navList.innerHTML = html;
+}
+
+function renderMobileDrawerNavigation() {
+  var drawerList = document.getElementById("mobile-drawer-nav-list");
+  var categories = window.CatalogStore ? window.CatalogStore.getCategories() : window.CATEGORIES_DATA;
+  if (!drawerList || !categories) return;
+
+  var html = '<li class="drawer-nav-item"><a href="#hero-section" onclick="toggleMobileDrawer(false)">হোম (Home) <span>→</span></a></li>';
+  html += '<li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory(\'all\');">সব কালেকশন (All Drop) <span>→</span></a></li>';
+
+  categories.forEach(function(cat) {
+    if (cat.id === "all") return;
+    var text = cat.bnLabel ? cat.bnLabel + ' (' + cat.label + ')' : cat.label;
+    html += '<li class="drawer-nav-item"><a href="#products-section" onclick="toggleMobileDrawer(false); filterProductsByCategory(\'' + cat.id + '\');">' + text + ' <span>→</span></a></li>';
+  });
+
+  html += '<li class="drawer-nav-item"><a href="javascript:void(0)" onclick="toggleMobileDrawer(false); openTrackModal();">অর্ডার ট্র্যাক করুন (Track) <span>→</span></a></li>';
+  drawerList.innerHTML = html;
+}
+
+function renderCategoriesGrid() {
   var grid = document.getElementById("categories-grid-container");
   var categories = window.CatalogStore ? window.CatalogStore.getCategories() : window.CATEGORIES_DATA;
   if (!grid || !categories) return;
