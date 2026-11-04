@@ -221,7 +221,7 @@ window.CheckoutManager = {
 
         waMsg += "\n💰 সর্বমোট মূল্য: ৳" + order.grandTotal + " (ক্যাশ অন ডেলিভারি)";
 
-        var hotline = window.STORE_CONFIG ? window.STORE_CONFIG.whatsappNumber.replace(/\D/g, "") : "8801812345678";
+        var hotline = window.STORE_CONFIG ? window.STORE_CONFIG.whatsappNumber.replace(/\D/g, "") : "8801920217501";
         waBtn.href = "https://wa.me/" + hotline + "?text=" + encodeURIComponent(waMsg);
       }
     }

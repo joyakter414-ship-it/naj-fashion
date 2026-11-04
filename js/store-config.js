@@ -13,12 +13,12 @@ window.STORE_CONFIG = {
   
   // Official Links & Social Media
   facebookUrl: "https://www.facebook.com/profile.php?id=100081147288431",
-  whatsappNumber: "+8801812345678", // Default BD WhatsApp hotline
-  displayPhone: "+880 1812-345678",
-  displayPhoneSecondary: "+880 1712-987654",
+  whatsappNumber: "+8801920217501", // BD WhatsApp hotline
+  displayPhone: "01920217501",
+  displayPhoneSecondary: "+880 1920-217501",
   email: "najfashionhousebd@gmail.com",
-  address: "House #18, Road #04, Block-C, Mirpur-1, Dhaka-1216, Bangladesh",
-  warehouseLocation: "Dhaka Central Distribution Hub",
+  address: "ঢাকা, সাভার, নবীনগর, চারিগ্রাম",
+  warehouseLocation: "ঢাকা, সাভার, নবীনগর, চারিগ্রাম",
   
   // Google Drive Connected Folder Info
   googleDrive: {
@@ -48,14 +48,14 @@ window.STORE_CONFIG = {
     "✨ নতুন কালেকশন ২০২৬: সারা বাংলাদেশে ক্যাশ অন ডেলিভারি সুবিধা!",
     "🔥 SPECIAL OFFER: ২,৫০০ টাকার অর্ডারে সারাদেশে ফ্রি ডেলিভারি!",
     "👕 ১০০% প্রিমিয়াম সুতি ফেব্রিক ও গ্যারান্টেড কোয়ালিটি · স্টাইল ইয়োরসেল্ফ",
-    "⚡ ঢাকা সিটিতে ২৪-৪৮ ঘণ্টার মধ্যে সুপারফাস্ট হোম ডেলিভারি",
-    "📞 সরাসরি অর্ডার ও সাপোর্টের জন্য হোয়াটসঅ্যাপ করুন: +880 1812-345678"
+    "⚡ ২৪-৪৮ ঘণ্টার মধ্যে সুপারফাস্ট হোম ডেলিভারি",
+    "📞 সরাসরি অর্ডার ও সাপোর্টের জন্য কল বা হোয়াটসঅ্যাপ করুন: 01920217501"
   ],
   
   // Bangladesh Payment Methods Supported
   paymentMethods: [
     { id: "cod", name: "ক্যাশ অন ডেলিভারি (Cash on Delivery)", desc: "পণ্য হাতে পেয়ে দেখে মূল্য পরিশোধ করুন", badge: "সবচেয়ে জনপ্রিয়" },
-    { id: "bkash", name: "bKash (বিকাশ সেন্ড মানি)", desc: "বিকাশ পার্সোনাল: 01812345678", badge: "Fast" },
-    { id: "nagad", name: "Nagad (নগদ সেন্ড মানি)", desc: "নগদ পার্সোনাল: 01812345678", badge: "Instant" }
+    { id: "bkash", name: "bKash (বিকাশ সেন্ড মানি)", desc: "বিকাশ পার্সোনাল: 01920217501", badge: "Fast" },
+    { id: "nagad", name: "Nagad (নগদ সেন্ড মানি)", desc: "নগদ পার্সোনাল: 01920217501", badge: "Instant" }
   ]
 };
