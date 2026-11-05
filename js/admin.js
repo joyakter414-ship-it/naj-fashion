@@ -64,6 +64,26 @@ function initDashboard() {
   renderOrdersTable();
   renderSizeGuideTable();
   populateCategorySelects();
+
+  // Sync latest cloud catalog and real orders from Cloudflare KV
+  if (window.CatalogStore) {
+    if (window.CatalogStore.syncFromCloud) {
+      window.CatalogStore.syncFromCloud(function() {
+        updateAdminTopPill();
+        renderOverviewMetrics();
+        renderProductsTable();
+        renderCategoriesList();
+        renderSizeGuideTable();
+        populateCategorySelects();
+      });
+    }
+    if (window.CatalogStore.syncOrdersFromCloud) {
+      window.CatalogStore.syncOrdersFromCloud(function() {
+        renderOrdersTable();
+        renderOverviewMetrics();
+      });
+    }
+  }
 }
 
 function updateAdminTopPill() {
@@ -96,7 +116,15 @@ window.switchAdminTab = function(tabName) {
   if (tabName === "overview") renderOverviewMetrics();
   if (tabName === "products") renderProductsTable();
   if (tabName === "categories") renderCategoriesList();
-  if (tabName === "orders") renderOrdersTable();
+  if (tabName === "orders") {
+    renderOrdersTable();
+    if (window.CatalogStore && window.CatalogStore.syncOrdersFromCloud) {
+      window.CatalogStore.syncOrdersFromCloud(function() {
+        renderOrdersTable();
+        renderOverviewMetrics();
+      });
+    }
+  }
   if (tabName === "sizeguide") renderSizeGuideTable();
 };
 

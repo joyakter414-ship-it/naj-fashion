@@ -170,12 +170,16 @@ window.CheckoutManager = {
       status: "অর্ডার কনফার্মড (Processing)"
     };
 
-    // Save to LocalStorage for order tracking
-    try {
-      var orders = JSON.parse(localStorage.getItem("naj_customer_orders") || "[]");
-      orders.unshift(orderData);
-      localStorage.setItem("naj_customer_orders", JSON.stringify(orders));
-    } catch (e) {}
+    // Save to LocalStorage and push to Cloudflare Orders API
+    if (window.CatalogStore && window.CatalogStore.addOrder) {
+      window.CatalogStore.addOrder(orderData);
+    } else {
+      try {
+        var orders = JSON.parse(localStorage.getItem("naj_customer_orders") || "[]");
+        orders.unshift(orderData);
+        localStorage.setItem("naj_customer_orders", JSON.stringify(orders));
+      } catch (e) {}
+    }
 
     // Clear cart if items came from cart
     window.CartManager.clearCart();

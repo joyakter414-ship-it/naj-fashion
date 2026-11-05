@@ -72,10 +72,13 @@
       return initial;
     },
 
-    saveProducts: function(products) {
+    saveProducts: function(products, skipCloud) {
       try {
         localStorage.setItem(STORAGE_KEYS.PRODUCTS, JSON.stringify(products));
         window.dispatchEvent(new CustomEvent("naj_products_updated", { detail: products }));
+        if (!skipCloud) {
+          this.pushToCloud("save_products", { products: products });
+        }
         return true;
       } catch (e) {
         console.error("Error saving products:", e);
@@ -130,10 +133,13 @@
       return initial;
     },
 
-    saveCategories: function(categories) {
+    saveCategories: function(categories, skipCloud) {
       try {
         localStorage.setItem(STORAGE_KEYS.CATEGORIES, JSON.stringify(categories));
         window.dispatchEvent(new CustomEvent("naj_categories_updated", { detail: categories }));
+        if (!skipCloud) {
+          this.pushToCloud("save_categories", { categories: categories });
+        }
         return true;
       } catch (e) {
         return false;
@@ -170,9 +176,12 @@
       return DEFAULT_AUTH;
     },
 
-    saveAuth: function(authData) {
+    saveAuth: function(authData, skipCloud) {
       try {
         localStorage.setItem(STORAGE_KEYS.AUTH, JSON.stringify(authData));
+        if (!skipCloud) {
+          this.pushToCloud("update_credentials", { auth: authData });
+        }
         return true;
       } catch (e) {
         return false;
@@ -255,7 +264,7 @@
       }
     },
 
-    saveOrders: function(orders) {
+    saveOrders: function(orders, skipCloud) {
       try {
         localStorage.setItem(STORAGE_KEYS.ORDERS, JSON.stringify(orders));
         return true;
@@ -264,12 +273,38 @@
       }
     },
 
+    addOrder: function(order) {
+      var orders = this.getOrders();
+      orders.unshift(order);
+      this.saveOrders(orders, true);
+
+      // Push to Cloudflare Orders API
+      if (typeof fetch === "function") {
+        fetch("/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ order: order })
+        }).catch(function(err) {
+          console.warn("Cloudflare Orders API sync error:", err);
+        });
+      }
+      return order;
+    },
+
     updateOrderStatus: function(orderId, newStatus) {
       var orders = this.getOrders();
       var found = orders.find(function(o) { return o.orderId === orderId; });
       if (found) {
         found.status = newStatus;
-        this.saveOrders(orders);
+        this.saveOrders(orders, true);
+
+        if (typeof fetch === "function") {
+          fetch("/api/orders", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ orderId: orderId, status: newStatus })
+          }).catch(function() {});
+        }
         return true;
       }
       return false;
@@ -277,7 +312,15 @@
 
     deleteOrder: function(orderId) {
       var orders = this.getOrders().filter(function(o) { return o.orderId !== orderId; });
-      this.saveOrders(orders);
+      this.saveOrders(orders, true);
+
+      if (typeof fetch === "function") {
+        fetch("/api/orders", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ orderId: orderId })
+        }).catch(function() {});
+      }
       return true;
     },
 
@@ -299,10 +342,13 @@
       return DEFAULT_SIZE_GUIDE.slice();
     },
 
-    saveSizeGuide: function(list) {
+    saveSizeGuide: function(list, skipCloud) {
       try {
         localStorage.setItem(STORAGE_KEYS.SIZE_GUIDE, JSON.stringify(list));
         window.dispatchEvent(new CustomEvent("naj_sizeguide_updated", { detail: list }));
+        if (!skipCloud) {
+          this.pushToCloud("save_size_guide", { sizeGuide: list });
+        }
         return true;
       } catch (e) {
         console.error("Error saving size guide:", e);
@@ -313,6 +359,73 @@
     resetSizeGuide: function() {
       this.saveSizeGuide(DEFAULT_SIZE_GUIDE.slice());
       return DEFAULT_SIZE_GUIDE.slice();
+    },
+
+    // ================= CLOUDFLARE EDGE REAL-TIME SYNC =================
+    syncFromCloud: function(callback) {
+      var self = this;
+      if (typeof fetch !== "function") return;
+
+      fetch("/api/store?_t=" + Date.now())
+        .then(function(res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          if (data && data.success) {
+            if (Array.isArray(data.products) && data.products.length > 0) {
+              self.saveProducts(data.products, true);
+            }
+            if (Array.isArray(data.categories) && data.categories.length > 0) {
+              self.saveCategories(data.categories, true);
+            }
+            if (Array.isArray(data.sizeGuide) && data.sizeGuide.length > 0) {
+              self.saveSizeGuide(data.sizeGuide, true);
+            }
+            if (data.authEmail && typeof data.authEmail === "string") {
+              var currAuth = self.getAuth();
+              currAuth.email = data.authEmail;
+              self.saveAuth(currAuth, true);
+            }
+            if (typeof callback === "function") callback(null, data);
+          }
+        })
+        .catch(function(err) {
+          if (typeof callback === "function") callback(err);
+        });
+    },
+
+    pushToCloud: function(action, payload) {
+      if (typeof fetch !== "function") return;
+      var body = Object.assign({ action: action }, payload);
+      fetch("/api/store", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      }).catch(function(err) {
+        console.warn("Cloudflare KV sync error:", err);
+      });
+    },
+
+    syncOrdersFromCloud: function(callback) {
+      var self = this;
+      if (typeof fetch !== "function") return;
+
+      fetch("/api/orders?_t=" + Date.now())
+        .then(function(res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function(data) {
+          if (data && data.success && Array.isArray(data.orders)) {
+            self.saveOrders(data.orders, true);
+            window.dispatchEvent(new CustomEvent("naj_orders_updated", { detail: data.orders }));
+            if (typeof callback === "function") callback(null, data.orders);
+          }
+        })
+        .catch(function(err) {
+          if (typeof callback === "function") callback(err);
+        });
     },
 
     // ================= BACKUP & EXPORT =================
@@ -329,6 +442,13 @@
       };
     }
   };
+
+  // Auto-sync store data from Cloudflare Edge in the background
+  if (typeof window !== "undefined") {
+    setTimeout(function() {
+      CatalogStore.syncFromCloud();
+    }, 60);
+  }
 
   window.CatalogStore = CatalogStore;
 })(window);

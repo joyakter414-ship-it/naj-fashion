@@ -1,3 +1,7 @@
 name = "naj-fashion"
 compatibility_date = "2026-11-01"
 pages_build_output_dir = "."
+
+[[kv_namespaces]]
+binding = "NAJ_STORE_KV"
+id = "3c6b58a7ccc548e8b57187a7198dca33"
